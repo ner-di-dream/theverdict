@@ -1,0 +1,198 @@
+@charset "UTF-8";
+
+body
+{
+	white-space : nowrap;
+}
+
+.welcomeBackground
+{
+	position: absolute;
+	width: 1920px;
+	height: 937px;
+	top: 0px;
+	left: 0px;
+	margin: 0px 0px 0px 0px;
+	display: block;
+}
+
+#title
+{
+	font-family: 'Outfit', sans-serif;
+	font-size: 48px;
+	color: white;
+	position: absolute;
+	top: 200px;
+	left: 480px;
+}
+
+#catchPhrase
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+	color: white;
+	position: absolute;
+	top: 320px;
+	left: 530px;
+}
+
+#searchIcon
+{
+	position: absolute;
+	top: 415px;
+	left: 480px;
+	width: 40px;
+	height: 40px;
+	-webkit-filter: invert(100%);
+}
+
+#search
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 900;
+	opacity: 50%;
+	color: white;
+	position: absolute;
+	top: 400px;
+	left: 535px;
+	width: 800px;
+	height: 60px;
+	background-color: transparent;
+	border: none;
+	border-bottom: 2px solid white;
+}
+
+#search:focus
+{
+	outline: none;
+}
+
+#explanation
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+	color: white;
+	position: absolute;
+	top: 480px;
+	left: 540px;
+}
+
+#login
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 900;
+	background-color: deepskyblue;
+	color: white;
+	position: absolute;
+	top: 600px;
+	left: 540px;
+	border: none;
+	width: 120px;
+	height: 50px;
+	border-radius: 10px;
+}
+
+#ifNoAccount
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+	color: white;
+	position: absolute;
+	top: 660px;
+	left: 540px;
+}
+
+#join
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 900;
+	background-color: deepskyblue;
+	color: white;
+	position: absolute;
+	top: 750px;
+	left: 540px;
+	border: none;
+	width: 120px;
+	height: 50px;
+	border-radius: 10px;
+}
+
+.popup
+{
+	position: absolute;
+}
+
+#popupBackground
+{
+	width: 1920px;
+	height: 937px;
+	top: 0px;
+	left: 0px;
+	margin: 0px 0px 0px 0px;
+	display: block;
+}
+
+#popupDiv
+{
+	background-color: white;
+	border: none;
+	width: 640px;
+	height: 320px;
+	border-radius: 20px;
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#userId
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+	background-color: white;
+	color: black;
+	top: 20%;
+	left: 120px;
+	width: 400px;
+	height: 60px;
+	background-color: transparent;
+	border: none;
+	border-bottom: 2px solid black;
+}
+
+#userPwd
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+	background-color: white;
+	color: black;
+	top: 40%;
+	left: 120px;
+	width: 400px;
+	height: 60px;
+	background-color: transparent;
+	border: none;
+	border-bottom: 2px solid black;
+}
+
+#loginSubmit
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 900;
+	background-color: deepskyblue;
+	color: white;
+	top: 70%;
+	left: 260px;
+	border: none;
+	width: 120px;
+	height: 50px;
+	border-radius: 10px;
+}
