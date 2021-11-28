@@ -13,6 +13,7 @@
 <div>
 	<img class="welcomeBackground" src="Image/welcomeBackground.jpg">
 	<img class="welcomeBackground" src="Image/transluentBlack.png">
+	
 	<h1 id="title">The Verdict</h1>
 	<h4 id="catchPhrase">세상 모든 것을 리뷰한다!</h4>
 	<img id="searchIcon" src="Image/searchIcon.png">
@@ -20,11 +21,11 @@
 	<h4 id="explanation">소비를 할 수 있는 모든 것에 대하여 리뷰를 올리고, 올린 리뷰를 조회할 수 있는 리뷰 전문 사이트 입니다.</h4>
 	<button id="login">로그인</button>
 	<h4 id="ifNoAccount">혹은 계정이 없다면...</h4>
-	<button id="join">회원가입</button>
+	<button id="join" onclick="location.href='Join.jsp'">회원가입</button>
 	
 	<img class="popup" id="popupBackground" src="Image/transluentBlack.png">
 	<div class="popup" id="popupDiv" style="color:white;">
-		<input class="popup" id="userId" type="text" placeholder="아이디를 입력하세요" autocomplete="off">
+		<input class="popup" id="userId" type="text" placeholder="이메일을 입력하세요" autocomplete="off">
 		<input class="popup" id="userPwd" type="password" placeholder="비밀번호를 입력하세요" autocomplete="off">
 		<button class="popup" id="loginSubmit" type="submit">로그인</button>
 	</div>

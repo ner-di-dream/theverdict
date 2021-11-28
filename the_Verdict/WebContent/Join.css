@@ -1,0 +1,184 @@
+@charset "UTF-8";
+
+html
+{
+	margin: 0px;
+}
+
+body
+{
+	white-space : nowrap;
+	margin: 0px;
+}
+
+a
+{
+	text-decoration-line: none;
+}
+
+#topBar
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 1920px;
+	height: 80px;
+	background-color: #c03a2b;
+	margin: 0px;
+}
+
+#title
+{
+	font-family: 'Outfit', sans-serif;
+	font-size: 40px;
+	color: white;
+	position: absolute;
+	top: 15px;
+	left: 20px;
+	margin : 0px;
+}
+
+#content
+{
+	background-color: white;
+	position: absolute;
+	top: 80px;
+	width: 1920px;
+	height: 857px;
+}
+
+#notice
+{
+	position: absolute;
+	top: 50px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 28px;
+	font-weight: 900;
+}
+
+.joinInfo
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+	background-color: white;
+	color: black;
+	position: absolute;
+	width: 400px;
+	height: 60px;
+	background-color: transparent;
+	border: none;
+	border-bottom: 2px solid black;
+}
+
+#userId
+{
+	top: 200px;
+	left: 50%;
+	transform: translate(-50%, 0);
+}
+
+#userNickname
+{
+	top: 300px;
+	left: 50%;
+	transform: translate(-50%, 0);
+}
+
+#userPwd
+{
+	top: 400px;
+	left: 50%;
+	transform: translate(-50%, 0);
+}
+
+#userPwdCheck
+{
+	top: 500px;
+	left: 50%;
+	transform: translate(-50%, 0);
+}
+
+.warning
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+	color: red;
+	position: absolute;
+}
+
+#noId
+{
+	top: 185px;
+	left: 75%;
+	transform: translate(-50%, 0);
+}
+
+#invalidId
+{
+	top: 185px;
+	left: 75%;
+	transform: translate(-50%, 0);
+}
+
+#noNickname
+{
+	top: 285px;
+	left: 75%;
+	transform: translate(-50%, 0);
+}
+
+#invalidNickname
+{
+	top: 285px;
+	left: 75%;
+	transform: translate(-50%, 0);
+}
+
+#noPwd
+{
+	top: 385px;
+	left: 75%;
+	transform: translate(-50%, 0);
+}
+
+#invalidPwd
+{
+	top: 385px;
+	left: 75%;
+	transform: translate(-50%, 0);
+}
+
+#noPwdCheck
+{
+	top: 485px;
+	left: 75%;
+	transform: translate(-50%, 0);
+}
+
+#invalidPwdCheck
+{
+	top: 485px;
+	left: 75%;
+	transform: translate(-50%, 0);
+}
+
+#joinSubmit
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 900;
+	background-color: deepskyblue;
+	color: white;
+	position: absolute;
+	top: 650px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	border: none;
+	width: 120px;
+	height: 50px;
+	border-radius: 10px;
+}

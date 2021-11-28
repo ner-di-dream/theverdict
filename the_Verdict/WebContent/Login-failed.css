@@ -1,0 +1,129 @@
+@charset "UTF-8";
+
+html
+{
+	margin: 0px;
+}
+
+body
+{
+	white-space : nowrap;
+	margin: 0px;
+}
+
+a
+{
+	text-decoration-line: none;
+}
+
+#topBar
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 1920px;
+	height: 80px;
+	background-color: #c03a2b;
+	margin: 0px;
+}
+
+#title
+{
+	font-family: 'Outfit', sans-serif;
+	font-size: 40px;
+	color: white;
+	position: absolute;
+	top: 15px;
+	left: 20px;
+	margin : 0px;
+}
+
+#content
+{
+	background-color: white;
+	position: absolute;
+	top: 80px;
+	width: 1920px;
+	height: 857px;
+}
+
+#notice
+{
+	position: absolute;
+	top: 100px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 28px;
+	font-weight: 900;
+}
+
+#userId
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+	background-color: white;
+	color: black;
+	position: absolute;
+	top: 250px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	width: 400px;
+	height: 60px;
+	background-color: transparent;
+	border: none;
+	border-bottom: 2px solid black;
+}
+
+#userPwd
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+	background-color: white;
+	color: black;
+	position: absolute;
+	top: 350px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	width: 400px;
+	height: 60px;
+	background-color: transparent;
+	border: none;
+	border-bottom: 2px solid black;
+}
+
+#loginSubmit
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 900;
+	background-color: deepskyblue;
+	color: white;
+	position: absolute;
+	top: 500px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	border: none;
+	width: 120px;
+	height: 50px;
+	border-radius: 10px;
+}
+
+#join
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 900;
+	background-color: deepskyblue;
+	color: white;
+	position: absolute;
+	top: 600px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	border: none;
+	width: 120px;
+	height: 50px;
+	border-radius: 10px;
+}
