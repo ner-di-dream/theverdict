@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,7 @@
 	<img class="welcomeBackground" src="Image/welcomeBackground.jpg">
 	<img class="welcomeBackground" src="Image/transluentBlack.png">
 	
-	<h1 id="title">The Verdict</h1>
+	<h1 id="title"><a href="Main.jsp">The Verdict</a></h1>
 	<h4 id="catchPhrase">세상 모든 것을 리뷰한다!</h4>
 	<img id="searchIcon" src="Image/searchIcon.png">
 	<input id="search" type="text" placeholder="검색어를 입력하세요" autocomplete="off">
@@ -25,9 +26,11 @@
 	
 	<img class="popup" id="popupBackground" src="Image/transluentBlack.png">
 	<div class="popup" id="popupDiv" style="color:white;">
-		<input class="popup" id="userId" type="text" placeholder="이메일을 입력하세요" autocomplete="off">
-		<input class="popup" id="userPwd" type="password" placeholder="비밀번호를 입력하세요" autocomplete="off">
-		<button class="popup" id="loginSubmit" type="submit">로그인</button>
+		<form action="Login-db.jsp" method="post">
+			<input class="popup" id="userId" name="userId" type="text" placeholder="이메일을 입력하세요" autocomplete="on">
+			<input class="popup" id="userPwd" name="userPwd" type="password" placeholder="비밀번호를 입력하세요" autocomplete="off">
+			<button class="popup" id="loginSubmit" type="submit">로그인</button>
+		</form>
 	</div>
 	
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>

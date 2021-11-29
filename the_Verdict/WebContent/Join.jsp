@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@
 </head>
 <body>
 <div id="topBar">
-	<h1 id="title">The Verdict</h1>
+	<h1 id="title" onclick="location.href='Main.jsp'">The Verdict</h1>
 </div>
 <div id="content">
 	<h3 id="notice">회원가입</h3>

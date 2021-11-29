@@ -13,7 +13,8 @@ body
 
 a
 {
-	text-decoration-line: none;
+	text-decoration: none;
+	color: inherit;
 }
 
 #topBar
@@ -35,8 +36,49 @@ a
 	position: absolute;
 	top: 15px;
 	left: 20px;
-	margin : 0px;
+	margin: 0px;
+	cursor: pointer;
 }
+
+#login
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+	color: white;
+	position: absolute;
+	top: 23px;
+	right: 40px;
+	margin: 0px;
+	cursor: pointer;
+}
+
+#nickname
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+	color: white;
+	position: absolute;
+	top: 23px;
+	right: 160px;
+	margin: 0px;
+	text-align: right;
+}
+
+#logout
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+	color: white;
+	position: absolute;
+	top: 23px;
+	right: 40px;
+	margin: 0px;
+	cursor: pointer;
+}
+
 
 #content
 {

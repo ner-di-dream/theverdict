@@ -15,7 +15,7 @@
 	<h1 id="title" onclick="location.href='Main.jsp'">The Verdict</h1>
 </div>
 <div id="content">
-	<h3 id="notice">이메일 또는 비밀번호가 잘못 입력되었습니다.</h3>
+	<h3 id="notice">로그인</h3>
 	<form action="Login-db.jsp" method="post">
 		<input id="userId" type="text" name="userId" placeholder="이메일을 입력하세요" autocomplete="on">
 		<input id="userPwd" type="password" name="userPwd" placeholder="비밀번호를 입력하세요" autocomplete="off">

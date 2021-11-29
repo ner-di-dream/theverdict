@@ -14,6 +14,7 @@ body
 a
 {
 	text-decoration-line: none;
+	color: inherit;
 }
 
 #topBar
@@ -36,6 +37,7 @@ a
 	top: 15px;
 	left: 20px;
 	margin : 0px;
+	cursor: pointer;
 }
 
 #content
@@ -61,12 +63,52 @@ a
 #error
 {
 	position: absolute;
-	top: 50px;
+	top: 350px;
 	left: 50%;
 	transform: translate(-50%, 0);
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 28px;
 	font-weight: 900;
+}
+
+#e_mailError
+{
+	position: absolute;
+	top: 100px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 28px;
+	font-weight: 900;
+}
+
+#nicknameError
+{
+	position: absolute;
+	top: 200px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 28px;
+	font-weight: 900;
+}
+
+#join
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 21px;
+	font-weight: 900;
+	background-color: deepskyblue;
+	color: white;
+	position: absolute;
+	top: 450px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	border: none;
+	width: 180px;
+	height: 80px;
+	border-radius: 10px;
+	cursor: pointer;
 }
 
 #back
@@ -77,11 +119,12 @@ a
 	background-color: deepskyblue;
 	color: white;
 	position: absolute;
-	top: 400px;
+	top: 600px;
 	left: 50%;
 	transform: translate(-50%, 0);
 	border: none;
 	width: 240px;
 	height: 80px;
 	border-radius: 10px;
+	cursor: pointer;
 }
