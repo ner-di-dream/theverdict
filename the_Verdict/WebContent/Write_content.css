@@ -104,3 +104,17 @@ a
 	margin-left: 50px;
 	margin-top: 5px;
 }
+#write{
+	font-family: 'Outfit', sans-serif;
+	position:relative;
+	text-align: center;
+	border-radius: 15px;
+	background: #8080ff;
+	color : white;
+	padding: 2px; 
+	width: 400px;
+	height: 20px;
+	float:left; 
+	margin-left: 50px;
+	margin-top: 5px;
+}

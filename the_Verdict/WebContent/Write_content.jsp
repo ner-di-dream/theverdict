@@ -26,6 +26,9 @@
         $("#QnA").click(function() {
             location.href = "QnA.jsp";
         });
+        $("#write").click(function() {
+            location.href = "Write_content.jsp";
+        });
     });
 </script>
 </head>
@@ -43,6 +46,7 @@
 	<div id = "classify">분류</div>
 	<div id = "leaderboard">리더보드</div>
 	<div id = "QnA">문의하기</div>
+	<div id = "write">글쓰기</div>
 </div>
 <div id="classifyArea">
 	
