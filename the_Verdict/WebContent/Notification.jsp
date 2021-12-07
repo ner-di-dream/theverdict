@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8" session="false" %>
+<% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="Write_content.css">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="Main.css">
 <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&family=Outfit&display=swap" rel="stylesheet">
 <title>The Verdict</title>
+</head>
+<body>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -47,7 +50,7 @@
 			%>
 			<h3 id="login" onclick="location.href='Login.jsp'">
 			<%
-			out.print("·Î±×ÀÎ");
+			out.print("ë¡œê·¸ì¸");
 			%>
 			</h3>
 			<%
@@ -64,7 +67,7 @@
 				out.print(nickname);
 				%>
 				</h3>
-				<h3 id="logout" onclick="location.href='Logout.jsp'">·Î±×¾Æ¿ô</h3>
+				<h3 id="logout" onclick="location.href='Logout.jsp'">ë¡œê·¸ì•„ì›ƒ</h3>
 				<%
 			}
 			else
@@ -72,7 +75,7 @@
 				%>
 				<h3 id="login" onclick="location.href='Login.jsp'">
 				<%
-				out.print("·Î±×ÀÎ");
+				out.print("ë¡œê·¸ì¸");
 				%>
 				</h3>
 				<%
@@ -81,17 +84,16 @@
 	%>
 </div>
 <div id="topNavigation">
-	<div id = "notification">°øÁö»çÇ×</div>
-	<div id = "classify">ºÐ·ù</div>
-	<div id = "leaderboard">¸®´õº¸µå</div>
-	<div id = "QnA">¹®ÀÇÇÏ±â</div>
-	<div id = "write">±Û¾²±â</div>
+	<div id = "notification">ê³µì§€ì‚¬í•­</div>
+	<div id = "classify">ë¶„ë¥˜</div>
+	<div id = "leaderboard">ë¦¬ë”ë³´ë“œ</div>
+	<div id = "QnA">ë¬¸ì˜í•˜ê¸°</div>
+	<div id = "write">ê¸€ì“°ê¸°</div>
 </div>
 <div id="classifyArea">
 	
 </div>
 <div id="content">
 </div>
-
 </body>
 </html>
