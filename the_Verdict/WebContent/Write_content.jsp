@@ -105,13 +105,13 @@
             location.href = "Main.jsp";
         });
         $("#notification").click(function() {
-            location.href = "notification.jsp";
+            location.href = "Notification.jsp";
         });
         $("#classify").click(function() {
             
         });
         $("#leaderboard").click(function() {
-            location.href = "leaderboard.jsp";
+            location.href = "Leaderboard.jsp";
         });
         $("#QnA").click(function() {
             location.href = "QnA.jsp";
@@ -149,7 +149,46 @@
 </head>
 <body>
 <div id="topBar">
-	<h1 id="title">The Verdict</h1>
+	<h1 id="title"><a href="Main.jsp">The Verdict</a></h1>
+	<%
+		HttpSession loginSession = request.getSession(false);
+		if(loginSession == null)
+		{
+			%>
+			<h3 id="login" onclick="location.href='Login.jsp'">
+			<%
+			out.print("로그인");
+			%>
+			</h3>
+			<%
+		}
+		else
+		{
+			String nickname = (String)loginSession.getAttribute("nickname");
+			
+			if(nickname != null)
+			{
+				%>
+				<h3 id="nickname">
+				<%
+				out.print(nickname);
+				%>
+				</h3>
+				<h3 id="logout" onclick="location.href='Logout.jsp'">로그아웃</h3>
+				<%
+			}
+			else
+			{
+				%>
+				<h3 id="login" onclick="location.href='Login.jsp'">
+				<%
+				out.print("로그인");
+				%>
+				</h3>
+				<%
+			}
+		}
+	%>
 </div>
 <div id="topNavigation">
 	<div id = "notification">공지사항</div>

@@ -18,13 +18,13 @@
             location.href = "Main.jsp";
         });
         $("#notification").click(function() {
-            location.href = "notification.jsp";
+            location.href = "Notification.jsp";
         });
         $("#classify").click(function() {
             
         });
         $("#leaderboard").click(function() {
-            location.href = "leaderboard.jsp";
+            location.href = "Leaderboard.jsp";
         });
         $("#QnA").click(function() {
             location.href = "QnA.jsp";
