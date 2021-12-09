@@ -34,7 +34,7 @@
 	
 	try {
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		String url = "jdbc:mysql://172.30.1.47:3306/the_verdict_db";
+		String url = "jdbc:mysql://localhost:3306/the_verdict_db";
 		conn = DriverManager.getConnection(url, "admin", "0000");
 		stmt = conn.createStatement();
 		

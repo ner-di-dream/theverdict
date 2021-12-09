@@ -58,6 +58,7 @@ a
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 28px;
 	font-weight: 900;
+	text-align: center;
 }
 
 .joinInfo
@@ -77,28 +78,28 @@ a
 
 #userId
 {
-	top: 200px;
+	top: 250px;
 	left: 50%;
 	transform: translate(-50%, 0);
 }
 
 #userNickname
 {
-	top: 300px;
+	top: 350px;
 	left: 50%;
 	transform: translate(-50%, 0);
 }
 
 #userPwd
 {
-	top: 400px;
+	top: 450px;
 	left: 50%;
 	transform: translate(-50%, 0);
 }
 
 #userPwdCheck
 {
-	top: 500px;
+	top: 550px;
 	left: 50%;
 	transform: translate(-50%, 0);
 }
@@ -114,56 +115,56 @@ a
 
 #noId
 {
-	top: 185px;
+	top: 235px;
 	left: 75%;
 	transform: translate(-50%, 0);
 }
 
 #invalidId
 {
-	top: 185px;
+	top: 235px;
 	left: 75%;
 	transform: translate(-50%, 0);
 }
 
 #noNickname
 {
-	top: 285px;
+	top: 335px;
 	left: 75%;
 	transform: translate(-50%, 0);
 }
 
 #invalidNickname
 {
-	top: 285px;
+	top: 335px;
 	left: 75%;
 	transform: translate(-50%, 0);
 }
 
 #noPwd
 {
-	top: 385px;
+	top: 435px;
 	left: 75%;
 	transform: translate(-50%, 0);
 }
 
 #invalidPwd
 {
-	top: 385px;
+	top: 435px;
 	left: 75%;
 	transform: translate(-50%, 0);
 }
 
 #noPwdCheck
 {
-	top: 485px;
+	top: 535px;
 	left: 75%;
 	transform: translate(-50%, 0);
 }
 
 #invalidPwdCheck
 {
-	top: 485px;
+	top: 535px;
 	left: 75%;
 	transform: translate(-50%, 0);
 }
@@ -176,7 +177,7 @@ a
 	background-color: deepskyblue;
 	color: white;
 	position: absolute;
-	top: 650px;
+	top: 700px;
 	left: 50%;
 	transform: translate(-50%, 0);
 	border: none;

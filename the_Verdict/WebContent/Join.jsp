@@ -15,7 +15,7 @@
 	<h1 id="title" onclick="location.href='Main.jsp'">The Verdict</h1>
 </div>
 <div id="content">
-	<h3 id="notice">회원가입</h3>
+	<h3 id="notice">회원가입<br><br>다른 사이트에서 사용하는 비밀번호를 절대로 쓰지 마십시오.</h3>
 	<form action="Join-db.jsp" method="post">
 		<input class="joinInfo" id="userId" name="userId" type="email" placeholder="이메일" autocomplete="on">
 		<input class="joinInfo" id="userNickname" name="userNickname" type="text" placeholder="닉네임 (16자 이내)" autocomplete="off">

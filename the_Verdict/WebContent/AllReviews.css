@@ -63,9 +63,7 @@ a
 	top: 23px;
 	right: 160px;
 	margin: 0px;
-	height: 80px;
 	text-align: right;
-	cursor: pointer;
 }
 
 #logout
@@ -89,28 +87,6 @@ a
 	width: 1920px;
 	height: 320px;
 	z-index: 10;
-}
-
-#myProfile
-{
-	font-family: 'Noto Sans KR', sans-serif;
-  	font-size: 24px;
-	font-weight: 900;
-  	position: absolute;
-  	top: 0px;
-  	right: 75px;
-  	cursor: pointer;
-}
-
-#myReview
-{
-	font-family: 'Noto Sans KR', sans-serif;
-  	font-size: 24px;
-	font-weight: 900;
-  	position: absolute;
-  	top: 50px;
-  	right: 75px;
-  	cursor: pointer;
 }
 
 #notification
@@ -208,15 +184,6 @@ a
 }
 
 .noReviews
-{
-	position: relative;
-	font-family: 'Noto Sans KR', sans-serif;
-  	font-size: 36px;
-	font-weight: 900;
-	text-align: center;
-}
-
-.noRanking
 {
 	position: relative;
 	font-family: 'Noto Sans KR', sans-serif;
@@ -497,29 +464,45 @@ a
 	margin: 0px;
 }
 
-#halloffameTab
+#userNotFound
 {
-	font-family: 'Outfit', sans-serif;
-  	font-size: 24px;
-	font-weight: 400;
-	margin: 0px;
-	margin-left: 60px;
+	position: relative;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 36px;
+	font-weight: 900;
+	text-align: center;
 }
 
-#halloffameLine
-{
-	left: 50px;
-	width: 1800px;
-	margin-bottom: 50px;
-}
-
-#halloffame
+#previousPage
 {
 	font-family: 'Noto Sans KR', sans-serif;
-  	font-size: 24px;
-	font-weight: 400;
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	width: auto;
+	font-size: 24px;
+	font-weight: 900;
+	background-color: deepskyblue;
+	color: white;
+	position: relative;
+	top: 50px;
+	left: 740px;
+	border: none;
+	width: 180px;
+	height: 60px;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+#nextPage
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+	background-color: deepskyblue;
+	color: white;
+	position: relative;
+	top: 50px;
+	left: 800px;
+	border: none;
+	width: 180px;
+	height: 60px;
+	border-radius: 10px;
+	cursor: pointer;
 }

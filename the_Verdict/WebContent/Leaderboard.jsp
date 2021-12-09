@@ -93,10 +93,10 @@
 
 	try {
 		Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://172.30.1.47:3306/the_verdict_db";
+		String url = "jdbc:mysql://localhost:3306/the_verdict_db";
 		conn = DriverManager.getConnection(url, "admin", "0000");
 		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		sql = "select * from user_data order by rating desc limit 25";
+		sql = "select * from user_data order by rating desc";
 		rs = stmt.executeQuery(sql);
 	}
 	catch(Exception e) {
@@ -104,7 +104,7 @@
 	}
 	int count = 1;
 	int rank = 1;
-	int previousRating = 0;
+	int previousRating = -1;
 	
 	while(rs.next())
 	{
@@ -130,7 +130,11 @@
 				String mainTier = null;
 				String detailTier = null;
 				
-				if(rating >= 2500)
+				if(rating >= 3000)
+				{
+					mainTier = "The Verdict";
+				}
+				else if(rating >= 2500)
 				{
 					mainTier = "Master";
 				}
@@ -178,9 +182,20 @@
 						detailTier = "V";
 					}
 				}
-				%>
 				
-				<%= mainTier + " " + detailTier %>
+				if(rating < 2500)
+				{
+					%>
+					<%= mainTier + " " + detailTier %>
+					<%
+				}
+				else
+				{
+					%>
+					<%= mainTier %>
+					<%
+				}
+				%>
 				
 				</td>
 			</tr>
@@ -232,7 +247,7 @@
         
         $("#nextPage").click(function() {
         	var page = <%= rankingPage %>
-        	if(page >= (<%= count %> - 1 )/ 25)
+        	if(page > (<%= count %> - 1 )/ 25)
         	{
         		alert("리더보드의 마지막 페이지입니다!");
         	}

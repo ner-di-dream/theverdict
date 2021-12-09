@@ -1,14 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8" session="false"%>
 <%@ page import = "java.sql.*" %>
 <!DOCTYPE html>
 <html>
-<%
-    	if(session.getAttribute("userId") == null){	
-    		out.println("<script>alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÕ´Ï´Ù.');</script>");
-    		response.sendRedirect("Main.jsp");
-    	}
-%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="Write_content.css">
@@ -17,13 +11,25 @@
 <title>The Verdict</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+
+<%
+HttpSession loginSession = request.getSession(false);
+if(loginSession == null)
+{
+%>
+		alert("ë¡œê·¸ì¸ì´ í•„ìš”í•©ë‹ˆë‹¤.");
+		document.location.href = "Main.jsp";
+<%
+}
+%>
+
 	var classify_data = new Array();
 	var main_data = new Set();
 	var sub_data = new Set();
 	var product_data = new Set();
 	var pre_main, pre_sub, pre_product;
 <%
-	String main_category, sub_category, product;
+	String main_category, subcategory, product;
 	Connection conn = null;
 	Statement stmt = null;
 	String sql = null;
@@ -32,27 +38,27 @@
 	try{
 		Class.forName("com.mysql.jdbc.Driver");
 		String url = "jdbc:mysql://localhost:3306/the_verdict_db?serverTimezone=UTC";
-		conn = DriverManager.getConnection(url, "admin", "1234");
+		conn = DriverManager.getConnection(url, "admin", "0000");
 		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-		sql = "select main_category, sub_category, product from board_dara group by main_category, sub_category, product order by 1, 2, 3 ";
+		sql = "select main_category, subcategory, product from board_data group by main_category, subcategory, product order by 1, 2, 3 ";
 		rs = stmt.executeQuery(sql);
 	}
 	catch(Exception e){
-		out.println("DB ¿¬µ¿ ¿À·ùÀÔ´Ï´Ù.:" + e.getMessage());
+		out.println("DB ì—°ë™ ì˜¤ë¥˜ì…ë‹ˆë‹¤.:" + e.getMessage());
 	}
 	
 	while(rs.next()){
 %>
-		classify_data.push({"main_category" : <%=rs.getString("main_category")%>, {"sub_category" : <%=rs.getString("sub_category")%>},{"product":<%=rs.getString("product")%>} );
+		classify_data.push({"main_category" : "<%=rs.getString("main_category")%>"}, {"subcategory" : "<%=rs.getString("subcategory")%>"},{"product" : "<%=rs.getString("product")%>"} );
 <%
 	}
 %>
     $(document).ready(function() {
     	
     	//init
-    	$("#main_category").empty().append("<option value = '1'>´ëºĞ·ù¸¦ ¼±ÅÃÇÏ¼¼¿ä</option>");
-    	$("#sub_category").empty().append("<option value = '1'>¼ÒºĞ·ù¸¦ ¼±ÅÃÇÏ¼¼¿ä</option>");
-    	$("#product").empty().append("<option value = '1'>Á¦Ç°À» ¼±ÅÃÇÏ¼¼¿ä</option>");
+    	$("#main_category").empty().append("<option value = '1'>ëŒ€ë¶„ë¥˜ë¥¼ ì„ íƒí•˜ì„¸ìš”</option>");
+    	$("#subcategory").empty().append("<option value = '1'>ì†Œë¶„ë¥˜ë¥¼ ì„ íƒí•˜ì„¸ìš”</option>");
+    	$("#product").empty().append("<option value = '1'>ì œí’ˆì„ ì„ íƒí•˜ì„¸ìš”</option>");
     	pre_main = null;
     	pre_sub = null;
     	pre_product = null;
@@ -64,9 +70,9 @@
 		}
 %>
 <%		
-		if(request.getParameter("sub_category") != null){
+		if(request.getParameter("subcategory") != null){
 %>
-			pre_sub = <%=request.getParameter("sub_category")%>;
+			pre_sub = <%=request.getParameter("subcategory")%>;
 <%
 		}
 %>
@@ -80,10 +86,10 @@
 %>
 
 
-		//sql¿¡ °¡Á®¿Â json Çü½ÄÀÇ µ¥ÀÌÅÍ¸¦ ºĞ¸®ÇØ¼­ ÀúÀåÇÑ´Ù
+		//sqlì— ê°€ì ¸ì˜¨ json í˜•ì‹ì˜ ë°ì´í„°ë¥¼ ë¶„ë¦¬í•´ì„œ ì €ì¥í•œë‹¤
 		for(var x in classify_data){
 			main_data.add({"main_category": x["main_category"]});
-			sub_data.add({"main_category": x["main_category"], "sub_category": x["sub_category"]});
+			sub_data.add({"main_category": x["main_category"], "subcategory": x["subcategory"]});
 			product_data.add(x);
 		}
 		
@@ -122,27 +128,27 @@
         
     });
     function getSubCategory(){
-    	$("#sub_category").empty().append("<option value = '1'>¼ÒºĞ·ù¸¦ ¼±ÅÃÇÏ¼¼¿ä</option>");
-    	$("#product").empty().append("<option value = '1'>Á¦Ç°À» ¼±ÅÃÇÏ¼¼¿ä</option>");
+    	$("#subcategory").empty().append("<option value = '1'>ì†Œë¶„ë¥˜ë¥¼ ì„ íƒí•˜ì„¸ìš”</option>");
+    	$("#product").empty().append("<option value = '1'>ì œí’ˆì„ ì„ íƒí•˜ì„¸ìš”</option>");
     	getValue = $("#main_category").val();
     	for(var x in sub_data){
     		if(x[main_category] != getValue)	continue;
-			if(x[sub_category] == pre_sub){
-				$("sub_category").append("<option value = '" + x[sub_category] + "' selected>"+x[sub_category]+"</option>");
+			if(x[subcategory] == pre_sub){
+				$("subcategory").append("<option value = '" + x[subcategory] + "' selected>"+x[subcategory]+"</option>");
 			}
-			else $("#sub_category").append("<option value = '" + x[sub_category] + "'>"+x[sub_category]+"</option>");
+			else $("#subcategory").append("<option value = '" + x[subcategory] + "'>"+x[subcategory]+"</option>");
     	}
     }
 	function getProduct(){
-		$("#product").empty().append("<option value = '1'>Á¦Ç°À» ¼±ÅÃÇÏ¼¼¿ä</option>");
+		$("#product").empty().append("<option value = '1'>ì œí’ˆì„ ì„ íƒí•˜ì„¸ìš”</option>");
 		getValueMain = $("#main_category").val();
-		getValueSub = $("#sub_category").val();
+		getValueSub = $("#subcategory").val();
     	for(var x in product_data){
-    		if(x[main_category] != getValueMain || x[sub_category] != getValueSub)	continue;
-			if(x[sub_category] == pre_sub){
-				$("#sub_category").append("<option value = '" + x[product] + "' selected>"+x[product]+"</option>");
+    		if(x[main_category] != getValueMain || x[subcategory] != getValueSub)	continue;
+			if(x[subcategory] == pre_sub){
+				$("#subcategory").append("<option value = '" + x[product] + "' selected>"+x[product]+"</option>");
 			}
-			else $("sub_category").append("<option value = '" + x[product] + "'>"+x[product]+"</option>");
+			else $("#subcategory").append("<option value = '" + x[product] + "'>"+x[product]+"</option>");
     	}
     }
 </script>
@@ -151,13 +157,12 @@
 <div id="topBar">
 	<h1 id="title"><a href="Main.jsp">The Verdict</a></h1>
 	<%
-		HttpSession loginSession = request.getSession(false);
 		if(loginSession == null)
 		{
-			%>
+	%>
 			<h3 id="login" onclick="location.href='Login.jsp'">
 			<%
-			out.print("·Î±×ÀÎ");
+			out.print("ë¡œê·¸ì¸");
 			%>
 			</h3>
 			<%
@@ -174,7 +179,7 @@
 				out.print(nickname);
 				%>
 				</h3>
-				<h3 id="logout" onclick="location.href='Logout.jsp'">·Î±×¾Æ¿ô</h3>
+				<h3 id="logout" onclick="location.href='Logout.jsp'">ë¡œê·¸ì•„ì›ƒ</h3>
 				<%
 			}
 			else
@@ -182,7 +187,7 @@
 				%>
 				<h3 id="login" onclick="location.href='Login.jsp'">
 				<%
-				out.print("·Î±×ÀÎ");
+				out.print("ë¡œê·¸ì¸");
 				%>
 				</h3>
 				<%
@@ -191,11 +196,11 @@
 	%>
 </div>
 <div id="topNavigation">
-	<div id = "notification">°øÁö»çÇ×</div>
-	<div id = "classify">ºĞ·ù</div>
-	<div id = "leaderboard">¸®´õº¸µå</div>
-	<div id = "QnA">¹®ÀÇÇÏ±â</div>
-	<div id = "write">±Û¾²±â</div>
+	<div id = "notification">ê³µì§€ì‚¬í•­</div>
+	<div id = "classify">ë¶„ë¥˜</div>
+	<div id = "leaderboard">ë¦¬ë”ë³´ë“œ</div>
+	<div id = "QnA">ë¬¸ì˜í•˜ê¸°</div>
+	<div id = "write">ê¸€ì“°ê¸°</div>
 </div>
 <div id="classifyArea">
 	
@@ -204,34 +209,34 @@
 	<form method = "post" action = "" >
 	<table border = "0">
 		<tr>
-			<td>¸ŞÀÎ Ä«Å×°í¸®:</td>
+			<td>ë©”ì¸ ì¹´í…Œê³ ë¦¬:</td>
 			<td>
 				<select name = "main_category" id = "main_category" onChange = "getSubCategory()">
 				</select>
 			</td>
 		</tr>
 		<tr>
-			<td>ÇÏÀ§ Ä«Å×°í¸®:</td>
+			<td>í•˜ìœ„ ì¹´í…Œê³ ë¦¬:</td>
 			<td>
-				<select name = "sub_category" id = "sub_category" onChange = "getProduct()">
+				<select name = "subcategory" id = "subcategory" onChange = "getProduct()">
 				</select>
 			</td>
 		</tr>
 		<tr>
-			<td>Á¦¸ñ:</td>
+			<td>ì œëª©:</td>
 			<td>
 				<select name = "product" id = "product">
 				</select>
 			</td>
 		</tr>
 		<tr>
-			<td>Á¦¸ñ:</td>
+			<td>ì œëª©:</td>
 			<td>
 				<input type = "text" name = "title">
 			</td>
 		</tr>
 		<tr>
-			<td>»çÁø:</td>
+			<td>ì‚¬ì§„:</td>
 			<td>
 				
 			</td>
@@ -243,7 +248,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>³»¿ë:</td>
+			<td>ë‚´ìš©:</td>
 			<td>
 				<input type = "text" name = "content">
 			</td>

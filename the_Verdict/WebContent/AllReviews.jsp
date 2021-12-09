@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="Main.css">
+<link rel="stylesheet" href="AllReviews.css">
 <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&family=Outfit&display=swap" rel="stylesheet">
 <title>The Verdict</title>
@@ -35,7 +35,7 @@
 			if(nickname != null)
 			{
 				%>
-				<h3 id="nickname" class="topMenuTrigger">
+				<h3 id="nickname">
 				<%
 				out.print(nickname);
 				%>
@@ -57,9 +57,7 @@
 	%>
 </div>
 
-<div id="topMenu" class="topMenuTrigger">
-<h3 id="myProfile">내 프로필</h3>
-<h3 id="myReview">내 리뷰</h3>
+<div id="topMenu">
 </div>
 
 <div id="topNavigation">
@@ -72,7 +70,29 @@
 
 <div id="content">
 
-<h3 id="bestReviewTab">Best Review of the week</h3>
+<%
+	String profileNickname = request.getParameter("nickname");
+	String pageString = request.getParameter("page");
+	int profilePage = 1;
+	int count = 0;
+	
+	if(pageString != null)
+	{
+		profilePage = Integer.parseInt(pageString);
+	}
+	if(profileNickname == null)
+	{
+		%>
+		<div>
+		<h1 id="userNotFound">해당 유저의 리뷰를 찾을 수 없습니다.</h1>
+		</div>
+		<%
+	}
+	else
+	{
+%>
+
+<h3 id="bestReviewTab"><%= profileNickname %>의 모든 리뷰</h3>
 <hr id="bestReviewLine">
 
 <%
@@ -86,7 +106,7 @@
 			String url = "jdbc:mysql://localhost:3306/the_verdict_db";
 			conn = DriverManager.getConnection(url, "admin", "0000");
 			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			sql = "select * from board_data where date between date_add(now(), interval -1 week) and now() order by (like_amount - dislike_amount) desc limit 3";
+			sql = "select * from board_data where nickname = '" + profileNickname + "' order by date desc";
 			rs = stmt.executeQuery(sql);
 		}
 		catch(Exception e) {
@@ -95,10 +115,13 @@
 			
 		if(rs != null)
 		{
-			int reviewCount = 0;
+			
+			
 			while(rs.next())
 			{
-				reviewCount++;
+				count++;
+				if(count >= (profilePage - 1) * 10 + 1 && count <= profilePage * 10)
+				{
 %>
 			<div class="bestReview">
 				<h3 class="bestReviewCategory">
@@ -159,12 +182,14 @@
 				<h3 class="bestReviewDislike"><% out.print(rs.getString("dislike_amount")); %></h3>
 			</div>
 	<%
+				}
 			}
-			if(reviewCount == 0)
+			
+			if(count == 0)
 			{
-				%>
-				<h3 class="noReviews">작성된 리뷰가 없어요!</h3>
-				<%
+			%>
+			<h3 class="noReviews">작성된 리뷰가 없어요!</h3>
+			<%	
 			}
 		}
 		else 
@@ -173,144 +198,13 @@
 			<h3 class="noReviews">작성된 리뷰가 없어요!</h3>
 			<%	
 		}
+	}
 	%>
 	
-<h3 id="halloffameTab">Hall of Fame</h3>
-<hr id="halloffameLine">
-
-<table id="halloffame" border="1">
-
-			<tr>
-				<td align="center" width="100px">Ranking</td>
-				<td align="center" width="600px">Nickname</td>
-				<td align="center" width="200px">Rating</td>
-				<td align="center" width="400px">Tier</td>
-			</tr>
-
-<%
-	try {
-		sql = "select * from user_data order by rating desc limit 10";
-		rs = stmt.executeQuery(sql);
-	}
-	catch(Exception e) {
-		out.println("DB 연동 오류입니다. : " + e.getMessage());
-	}
-	int count = 0;
-	int rank = 1;
-	int previousRating = -1;
-	
-if(rs != null)
-{
-	while(rs.next())
-	{
-		count++;
-		int rating = Integer.parseInt(rs.getString("rating"));
-		
-		if(rating != previousRating)
-		{
-			rank = count;
-		}
-		
-		previousRating = Integer.parseInt(rs.getString("rating"));
-		
-%>
-			<tr>
-				<td align="center" width="100px"> <%= rank %> </td>
-				<td align="center" width="400px"> <%= rs.getString("nickname") %> </td>
-				<td align="center" width="200px"> <%= rs.getString("rating") %> </td>
-				<td align="center" width="600px">
-				
-				<%
-				String mainTier = null;
-				String detailTier = null;
-				
-				if(rating >= 3000)
-				{
-					mainTier = "The Verdict";
-				}
-				else if(rating >= 2500)
-				{
-					mainTier = "Master";
-				}
-				else if(rating >= 2000)
-				{
-					mainTier = "Diamond";
-				}
-				else if(rating >= 1500)
-				{
-					mainTier = "Platinum";
-				}
-				else if(rating >= 1000)
-				{
-					mainTier = "Gold";
-				}
-				else if(rating >= 500)
-				{
-					mainTier = "Sliver";
-				}
-				else
-				{
-					mainTier = "Bronze";
-				}
-				
-				if((rating % 500) / 100 == 4)
-				{
-					detailTier = "I";
-				}
-				else if((rating % 500) / 100 == 3)
-				{
-					detailTier = "II";
-				}
-				else if((rating % 500) / 100 == 2)
-				{
-					detailTier = "III";
-				}
-				else if((rating % 500) / 100 == 1)
-				{
-					detailTier = "IV";
-				}
-				else
-				{
-					detailTier = "V";
-				}
-				
-				
-				if(rating < 2500)
-				{
-					%>
-					<%= mainTier + " " + detailTier %>
-					<%
-				}
-				else
-				{
-					%>
-					<%= mainTier %>
-					<%
-				}
-				%>
-				</td>
-			</tr>
-<%		
-	}
-%>
-</table>
-<%
-	if(count == 0)
-	{
-		%>
-		<h3 class="noRanking">명예의 전당에 등록된 사용자가 없어요!</h3>
-		<%
-	}
-}
-else
-{
-	%>
-	<h3 class="noRanking">명예의 전당에 등록된 사용자가 없어요!</h3>
-	<%
-}
-%>
+	<button id="previousPage">이전 페이지</button>
+	<button id="nextPage">다음 페이지</button>
 </div>
-
+	
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -332,7 +226,32 @@ else
         $("#write").click(function() {
             location.href = "Write_content.jsp";
         });
-        $("#nickname, #myProfile").click(function() {
+        
+        $("#previousPage").click(function() {
+        	var page = <%= profilePage %>
+        	if(page == 1)
+        	{
+        		alert("첫 페이지입니다!");
+        	}
+        	else
+        	{
+        		location.href = "AllReviews.jsp?nickname=" + <%= profileNickname %> + "&page=" + (page - 1);
+        	}
+        });
+        
+        $("#nextPage").click(function() {
+        	var page = <%= profilePage %>
+        	if(page > (<%= count %> - 1) / 10)
+        	{
+        		alert("마지막 페이지입니다!");
+        	}
+        	else
+        	{
+        		location.href = "AllReviews.jsp?nickname=" + <%= profileNickname %> + "&page=" + (page * 1 + 1);
+        	}
+        });
+        
+        $("#nickname").click(function() {
         	<%
         	if(loginSession != null)
         	{
@@ -342,22 +261,11 @@ else
         	}
         	%>
         });
-        $("#myReview").click(function() {
-        	<%
-        	if(loginSession != null)
-        	{
-        	%>
-        		location.href = "AllReviews.jsp?nickname=" + "<%= (String)loginSession.getAttribute("nickname") %>" + "&page=1";
-        	<%
-        	}
-        	%>
-        });
         $("#topMenu").hide();
-        $("#nickname").mouseenter(function() {
-    		$("#topMenu").fadeTo(200, 0.8);
-        });
-        $("#topMenu").mouseleave(function(){
-            $("#topMenu").fadeTo(200, 0);
+        $("#nickname").hover(function() {
+    		$("#topMenu").fadeIn();
+            }, function(){
+            $("#topMenu").fadeOut();
         });
     });
 </script>

@@ -1,0 +1,396 @@
+@charset "UTF-8";
+
+html
+{
+	margin: 0px;
+}
+
+body
+{
+	white-space : nowrap;
+	margin: 0px;
+}
+
+a
+{
+	text-decoration: none;
+	color: inherit;
+}
+
+#topBar
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 1920px;
+	height: 80px;
+	background-color: #c03a2b;
+	margin: 0px;
+}
+
+#title
+{
+	font-family: 'Outfit', sans-serif;
+	font-size: 40px;
+	color: white;
+	position: absolute;
+	top: 15px;
+	left: 20px;
+	margin: 0px;
+	cursor: pointer;
+}
+
+#login
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+	color: white;
+	position: absolute;
+	top: 23px;
+	right: 40px;
+	margin: 0px;
+	cursor: pointer;
+}
+
+#nickname
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+	color: white;
+	position: absolute;
+	top: 23px;
+	right: 160px;
+	margin: 0px;
+	text-align: right;
+}
+
+#logout
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+	color: white;
+	position: absolute;
+	top: 23px;
+	right: 40px;
+	margin: 0px;
+	cursor: pointer;
+}
+
+#topMenu
+{
+	position: absolute;
+	top: 80px;
+	background-color: #dcdcdc;
+	width: 1920px;
+	height: 320px;
+	z-index: 10;
+}
+
+#notification
+{
+  	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: absolute;
+  	top: 100px;
+  	left: 50px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #c03a2b;
+	color: white;
+	padding: 2px;
+	width: 300px;
+	height: 20px;  
+}
+
+#classify
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: absolute;
+  	top: 100px;
+  	left: 400px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #c03a2b;
+	color: white;
+	padding: 2px;
+	width: 300px;
+	height: 20px;  
+}
+
+#leaderboard
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: absolute;
+  	top: 100px;
+  	left: 750px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #c03a2b;
+	color: white;
+	padding: 2px;
+	width: 300px;
+	height: 20px;  
+}
+
+#QnA
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: absolute;
+  	top: 100px;
+  	left: 1100px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #c03a2b;
+	color: white;
+	padding: 2px;
+	width: 300px;
+	height: 20px;  
+}
+
+#write
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: absolute;
+  	top: 100px;
+  	left: 1450px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #8080ff;
+	color: white;
+	padding: 2px;
+	width: 400px;
+	height: 20px;  
+}
+
+#content
+{
+	background-color: white;
+	position: absolute;
+	top: 160px;
+	width: 1920px;
+	height: auto;
+}
+
+.userNotFound
+{
+	position: relative;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 36px;
+	font-weight: 900;
+	text-align: center;
+}
+
+#profileLayout1
+{
+	position: absolute;
+	top: 0px;
+	left: 75px;
+	width: 700px;
+	height: 275px;
+	background-color: #ffdcdc;
+}
+
+#profileLayout2
+{
+	position: absolute;
+	top: 0px;
+	left: 800px;
+	width: 1050px;
+	height: 275px;
+	background-color: #ffdcdc;
+}
+
+#profileLayout3
+{
+	position: absolute;
+	top: 300px;
+	left: 75px;
+	width: 1775px;
+	height: 450px;
+	background-color: #ffdcdc;
+}
+
+#profileIntroduceText
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 900;
+	position: absolute;
+	top: -10px;
+	left: 25px;
+}
+
+#profileIntroduce
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 18px;
+	font-weight: 400;
+	position: absolute;
+	top: 40px;
+	left: 25px;
+	width: 1000px;
+	height: 200px;
+	white-space: normal;
+	overflow-y: scroll;
+}
+
+.profilePicture
+{
+	position: absolute;
+	top: 25px;
+	left: 100px;
+	width: 100px;
+	height: 100px;
+	border-radius: 25px;
+}
+
+#profileNickname
+{
+	position: absolute;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 36px;
+	font-weight: 900;
+	top: 25px;
+	left: 225px;
+}
+
+.profileTier
+{
+	position: absolute;
+	top: 150px;
+	left: 100px;
+	width: 100px;
+	height: 100px;
+}
+
+.profileTierText
+{
+	position: absolute;
+	font-family: 'Outfit', sans-serif;
+  	font-size: 36px;
+	font-weight: 900;
+	top: 150px;
+	left: 225px;
+}
+
+#profileRatingText
+{
+	position: absolute;
+	font-family: 'Outfit', sans-serif;
+  	font-size: 36px;
+	font-weight: 900;
+	top: 25px;
+	left: 50px;
+}
+
+#profileRating
+{
+	position: absolute;
+	font-family: 'Outfit', sans-serif;
+  	font-size: 72px;
+	font-weight: 900;
+	top: -15px;
+	left: 325px;
+}
+
+#profileRanking
+{
+	position: absolute;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 32px;
+	font-weight: 900;
+	top: 10px;
+	right: 50px;
+}
+
+#profileEvaluation1
+{
+	position: absolute;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 400;
+	top: 150px;
+	left: 50px;
+}
+
+#profileEvaluation1Rating
+{
+	position: absolute;
+	font-family: 'Outfit', sans-serif;
+  	font-size: 26px;
+	font-weight: 900;
+	top: 150px;
+	right: 40px;
+	text-align: right;
+}
+
+#profileEvaluation2
+{
+	position: absolute;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 400;
+	top: 250px;
+	left: 50px;
+}
+
+#profileEvaluation2Rating
+{
+	position: absolute;
+	font-family: 'Outfit', sans-serif;
+  	font-size: 26px;
+	font-weight: 900;
+	top: 250px;
+	right: 40px;
+	text-align: right;
+}
+
+#profileEvaluation3
+{
+	position: absolute;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 400;
+	top: 350px;
+	left: 50px;
+}
+
+#profileEvaluation3Rating
+{
+	position: absolute;
+	font-family: 'Outfit', sans-serif;
+  	font-size: 26px;
+	font-weight: 900;
+	top: 350px;
+	right: 40px;
+	text-align: right;
+}
+
+#allReviewsButton
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+	background-color: deepskyblue;
+	color: white;
+	position: absolute;
+	top: 800px;
+	left: 660px;
+	border: none;
+	width: 600px;
+	height: 100px;
+	border-radius: 10px;
+	cursor: pointer;
+}

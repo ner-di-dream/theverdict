@@ -24,7 +24,7 @@
 	int e_mailOverlap = -1;
 	int nicknameOverlap = -1;
 	
-	String url = "jdbc:mysql://172.30.1.47:3306/the_verdict_db?useUnicode=true&characterEncoding=UTF-8";
+	String url = "jdbc:mysql://localhost:3306/the_verdict_db?useUnicode=true&characterEncoding=UTF-8";
 	
 	String sql_update;
 	ResultSet rs = null;
