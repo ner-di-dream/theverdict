@@ -49,6 +49,8 @@
 	e_mail = request.getParameter("userId");
 	nickname = request.getParameter("userNickname");
 	password = request.getParameter("userPwd");
+	nickname = nickname.replace("\'", "\\\'");
+	password = password.replace("\'", "\\\'");
 	
 	try {
 		Class.forName("com.mysql.jdbc.Driver");

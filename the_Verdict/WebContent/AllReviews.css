@@ -53,6 +53,26 @@ a
 	cursor: pointer;
 }
 
+.profilePicture
+{
+	position: absolute;
+	top: 10px;
+	right: 160px;
+	width: 60px;
+	height: 60px;
+	margin: 0px;
+}
+
+.topTier
+{
+	position: absolute;
+	top: 10px;
+	right: 240px;
+	width: 60px;
+	height: 60px;
+	margin: 0px;
+}
+
 #nickname
 {
 	font-family: 'Noto Sans KR', sans-serif;
@@ -61,9 +81,11 @@ a
 	color: white;
 	position: absolute;
 	top: 23px;
-	right: 160px;
+	right: 320px;
 	margin: 0px;
+	height: 80px;
 	text-align: right;
+	cursor: pointer;
 }
 
 #logout
@@ -85,8 +107,41 @@ a
 	top: 80px;
 	background-color: #dcdcdc;
 	width: 1920px;
-	height: 320px;
+	height: 200px;
 	z-index: 10;
+}
+
+#myProfile
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 900;
+  	position: absolute;
+  	top: 0px;
+  	right: 75px;
+  	cursor: pointer;
+}
+
+#myReview
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 900;
+  	position: absolute;
+  	top: 50px;
+  	right: 75px;
+  	cursor: pointer;
+}
+
+#setting
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 900;
+  	position: absolute;
+  	top: 100px;
+  	right: 75px;
+  	cursor: pointer;
 }
 
 #notification

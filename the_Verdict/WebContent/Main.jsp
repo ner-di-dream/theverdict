@@ -17,6 +17,16 @@
 <div id="topBar">
 	<h1 id="title"><a href="Main.jsp">The Verdict</a></h1>
 	<%
+		Connection conn = null;
+		Statement stmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		String url = "jdbc:mysql://localhost:3306/the_verdict_db";
+		conn = DriverManager.getConnection(url, "admin", "0000");
+		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		
 		HttpSession loginSession = request.getSession(false);
 		if(loginSession == null)
 		{
@@ -33,7 +43,55 @@
 			String nickname = (String)loginSession.getAttribute("nickname");
 			
 			if(nickname != null)
-			{
+			{	
+				try {
+					sql = "select * from user_data where nickname = '" + nickname + "'";
+					rs = stmt.executeQuery(sql);
+				}
+				catch(Exception e) {
+					out.println("DB 연동 오류입니다. : " + e.getMessage());
+				}
+				
+				int rating = 0;
+				if(rs != null)
+				{
+					while(rs.next())
+					{
+						rating = Integer.parseInt(rs.getString("rating"));
+						
+						if(rs.getString("profile_picture") == null)
+						{
+						%>
+						<img class="profilePicture" src="Image/NoProfileImage.png">
+						<%
+						}
+						else
+						{
+						%>
+						<img class="profilePicture" src="<% rs.getString("profile_picture"); %>">
+						<%
+						}
+					}
+				}
+				
+				if(rating >= 3000)
+				{
+				%>
+					<img class="topTier" src="Image/Tier_27.png">
+				<%
+				}
+				else if(rating >= 2500)
+				{
+				%>
+					<img class="topTier" src="Image/Tier_26.png">
+				<%
+				}
+				else
+				{
+				%>
+					<img class="topTier" src="Image/Tier_<%= (int)(rating / 100) + 1 %>.png">
+				<%
+				}
 				%>
 				<h3 id="nickname" class="topMenuTrigger">
 				<%
@@ -60,6 +118,7 @@
 <div id="topMenu" class="topMenuTrigger">
 <h3 id="myProfile">내 프로필</h3>
 <h3 id="myReview">내 리뷰</h3>
+<h3 id="setting">계정 및 프로필 관리</h3>
 </div>
 
 <div id="topNavigation">
@@ -75,17 +134,8 @@
 <h3 id="bestReviewTab">Best Review of the week</h3>
 <hr id="bestReviewLine">
 
-<%
-		Connection conn = null;
-		Statement stmt = null;
-		String sql = null;
-		ResultSet rs = null;
-		
+<%	
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/the_verdict_db";
-			conn = DriverManager.getConnection(url, "admin", "0000");
-			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			sql = "select * from board_data where date between date_add(now(), interval -1 week) and now() order by (like_amount - dislike_amount) desc limit 3";
 			rs = stmt.executeQuery(sql);
 		}
@@ -351,6 +401,9 @@ else
         	<%
         	}
         	%>
+        });
+        $("#setting").click(function() {
+        	location.href = "Setting.jsp";
         });
         $("#topMenu").hide();
         $("#nickname").mouseenter(function() {
