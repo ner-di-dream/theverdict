@@ -311,6 +311,38 @@
 		<%
 	}
 	%>
+	<div id = "writeComment">
+	<form method = "post" action = "comment.jsp" onSubmit="return checkForm()">
+		<textarea rows="5" cols="100" name = "comment"></textarea>
+		<input type="radio" id="positive" name="score" value="positive" checked>
+    	<label for="positive">추천</label>
+    	<input type="radio" id="negative" name="score" value="negative">
+    	<label for="positive">비추천</label>
+    	<input type = "submit" value = "등록">
+    	<input type="hidden" id="review_id" name="review_id" value="<%= idString %>">
+	</form>
+	</div>
+	<div id = "showComment">
+	<%
+	ResultSet rs3 = null;
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+		conn = DriverManager.getConnection(url, "admin", "0000");
+		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		sql = "select * from comment_data where review_id = " + idString + "";
+		rs3 = stmt.executeQuery(sql);
+		while(rs3.next()){
+	%>
+			 <div class = "commentBlock">
+			 </div>
+	<% 		 
+		}
+	}
+	catch(Exception e) {
+		out.println("DB 연동 오류입니다. : " + e.getMessage());
+	}
+	%>
+	</div>
 </div>
 
 <div class="blank2"></div>
