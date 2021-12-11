@@ -28,6 +28,8 @@ if(loginSession == null)
 	var sub_data = new Set();
 	var product_data = new Set();
 	var pre_main, pre_sub, pre_product;
+	var taglist = new Set();
+	
 <%
 	String main_category, subcategory, product;
 	Connection conn = null;
@@ -36,7 +38,7 @@ if(loginSession == null)
 	ResultSet rs = null;
 	
 	try{
-		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");
 		String url = "jdbc:mysql://localhost:3306/the_verdict_db?serverTimezone=UTC";
 		conn = DriverManager.getConnection(url, "admin", "0000");
 		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -57,6 +59,7 @@ if(loginSession == null)
     	
     	//init
     	$("#main_category").empty().append("<option value = '1'>대분류를 선택하세요</option>");
+    	$("#main_category").append("<option value = 'setMain'>직접선택</option>");
     	$("#subcategory").empty().append("<option value = '1'>소분류를 선택하세요</option>");
     	$("#product").empty().append("<option value = '1'>제품을 선택하세요</option>");
     	pre_main = null;
@@ -126,21 +129,50 @@ if(loginSession == null)
             location.href = "Write_content.jsp";
         });
         
+        
     });
     function getSubCategory(){
+    	$("#newMain").hide();
+    	$("#newSub").hide();
+    	$("#newProduct").hide();
+    	if($("#main_category option:selected").val() == '1'){
+    		console.log("1");
+    		return;
+    	}
+    	else if($("#main_category option:selected").val() == 'setMain'){
+    		//새로 등록할 매인 카테고리 입력창 띄우기
+    		$("#newMain").show('fast');
+    		//새로 등록할 서브 카테고리 입력창 띄우기
+    		$("#newSub").show('fast');
+    		//새로 등록할 입력 카테고리 입력창 띄우기
+    		$("#newProduct").show('fast');
+    		return;
+    	}
     	$("#subcategory").empty().append("<option value = '1'>소분류를 선택하세요</option>");
+    	$("#subcategory").append("<option value = 'setSub'>직접선택</option>");
     	$("#product").empty().append("<option value = '1'>제품을 선택하세요</option>");
     	getValue = $("#main_category").val();
     	for(var x in sub_data){
     		if(x[main_category] != getValue)	continue;
 			if(x[subcategory] == pre_sub){
-				$("subcategory").append("<option value = '" + x[subcategory] + "' selected>"+x[subcategory]+"</option>");
+				$("#subcategory").append("<option value = '" + x[subcategory] + "' selected>"+x[subcategory]+"</option>");
 			}
 			else $("#subcategory").append("<option value = '" + x[subcategory] + "'>"+x[subcategory]+"</option>");
     	}
     }
 	function getProduct(){
+		$("#newSub").hide();
+    	$("#newProduct").hide();
+		if($("#product option:selected").val() == '1'){
+    		return;
+    	}
+    	else if($("#product option:selected").val() == 'setSub'){
+    		$("#newSub").show('fast');
+    		$("#newProduct").show('fast');
+    		return;
+    	}
 		$("#product").empty().append("<option value = '1'>제품을 선택하세요</option>");
+		$("#product").append("<option value = 'setProduct'>직접선택</option>");
 		getValueMain = $("#main_category").val();
 		getValueSub = $("#subcategory").val();
     	for(var x in product_data){
@@ -151,6 +183,73 @@ if(loginSession == null)
 			else $("#subcategory").append("<option value = '" + x[product] + "'>"+x[product]+"</option>");
     	}
     }
+	function productCheck(){
+		$("#newProduct").hide();
+		if($("#product option:selected").val() == '1'){
+    		return;
+    	}
+    	else if($("#product option:selected").val() == 'setProduct'){
+    		//새로 등록할 입력 카테고리 입력창 띄우기
+    		$("#newProduct").show('fast');
+    		return;
+    	}
+	}
+	
+	function addTag(){
+		console.log("check");
+		var value = $("input[name = inputTag]").val();
+		if(value == null)	return;
+		else{
+			taglist.add(value);
+			$("#showTaglist").append("<span class = 'tagDesign' onclick = 'deleteTag(this)'>"+value+"</span>");
+		}
+		$("input[name = inputTag]").val('');
+	}
+	
+	function deleteTag(e){
+		var value = $(e).text();
+		taglist.delete(value);
+		$(e).remove();
+	}
+	
+	//입력값 검증
+	function checkForm(){
+		if($("#main_category option:selected").val() == '1' || ($("#main_category option:selected").val() == 'setMain' && $("#newMain").val() == null) ){
+			alert("메인 카테고리를 입력하세요");
+			return false;
+		}
+		if(($("#sub_category option:selected").val() == '1' || $("#sub_category option:selected").val() == 'setSub') && $("#newSub").val() == null){
+			alert("서브 카테고리를 입력하세요");
+			return false;
+		}
+		if(($("#product option:selected").val() == '1' || $("#product option:selected").val() == 'setProduct') && $("#newProduct").val() == null){
+			alert("상품명을 입력하세요");
+			return false;
+		}
+		if($("input[name = title]").val() == null){
+			alert("제목을 입력하세요");
+			return false;
+		}
+		if($("input[name = evaluation_score]").val() == null){
+			alert("평가 점수를 입력하세요");
+			return false;
+		}
+		if($("textarea[name = content]").val() == null){
+			alert("내용을 입력하세요");
+			return false;
+		}
+		
+		
+		
+		var value = "";
+		for(var x in taglist){
+			console.log(x);
+			value = value + (x + ";");
+		}
+		$("input[name = tag]").val(value);
+		alert();
+		return true;
+	}
 </script>
 </head>
 <body>
@@ -206,13 +305,16 @@ if(loginSession == null)
 	
 </div>
 <div id="content">
-	<form method = "post" action = "" >
+	<form method = "post" action = "Write_content_db.jsp" onSubmit="return checkForm()" >
 	<table border = "0">
 		<tr>
 			<td>메인 카테고리:</td>
 			<td>
 				<select name = "main_category" id = "main_category" onChange = "getSubCategory()">
 				</select>
+			</td>
+			<td>
+				<input name = "new_main_category" id = "newMain" type = "text" style = "display:none" >
 			</td>
 		</tr>
 		<tr>
@@ -221,12 +323,18 @@ if(loginSession == null)
 				<select name = "subcategory" id = "subcategory" onChange = "getProduct()">
 				</select>
 			</td>
+			<td>
+				<input name = "new_sub_category" id = "newSub" type = "text" style = "display:none" >
+			</td>
 		</tr>
 		<tr>
-			<td>제목:</td>
+			<td>상품명:</td>
 			<td>
-				<select name = "product" id = "product">
+				<select name = "product" id = "product" onChange = "productCheck()">
 				</select>
+			</td>
+			<td>
+				<input name = "new_product" id = "newProduct" type = "text" style = "display:none" >
 			</td>
 		</tr>
 		<tr>
@@ -236,26 +344,28 @@ if(loginSession == null)
 			</td>
 		</tr>
 		<tr>
-			<td>사진:</td>
+			<td>태그 추가(상품에 대한 간단한 정보):</td>
 			<td>
-				
+				<input type = "text" name = "inputTag" >
+				<div onclick = "addTag()">입력하기</div>
+				<input type = "hidden" name = "tag">
+			</td>
+			<td>
+				<div id = "showTaglist"></div>
 			</td>
 		</tr>
 		<tr>
-			<td>tag:</td>
+			<td>총점 입력:</td>
 			<td>
-				
+				<input type = "text" name = "evaluation_score">/10
 			</td>
 		</tr>
-		<tr>
-			<td>내용:</td>
-			<td>
-				<input type = "text" name = "content">
-			</td>
-		</tr>
+		
 	</table>
-	
-	
+		내용:<br>
+		<hr>
+		<textarea name = "content" rows = "50" cols = "200"></textarea><br>
+		<input type = "submit" value = "등록하기"> <input type = "reset" value = "초기화 하기">
 	</form>
 </div>
 
