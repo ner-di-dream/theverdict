@@ -24,11 +24,12 @@ if(loginSession == null)
 %>
 
 	var classify_data = new Array();
-	var main_data = new Set();
-	var sub_data = new Set();
-	var product_data = new Set();
+	var main_data = new Array();
+	var sub_data = new Array();
 	var pre_main, pre_sub, pre_product;
-	var taglist = new Set();
+	var taglist = new Array();
+	var infoListProperty = new Array();
+	var infoListValue = new Array();
 	
 <%
 	String main_category, subcategory, product;
@@ -51,7 +52,7 @@ if(loginSession == null)
 	
 	while(rs.next()){
 %>
-		classify_data.push({"main_category" : "<%=rs.getString("main_category")%>"}, {"subcategory" : "<%=rs.getString("subcategory")%>"},{"product" : "<%=rs.getString("product")%>"} );
+		classify_data.push(['<%=rs.getString("main_category")%>', '<%=rs.getString("subcategory")%>', '<%=rs.getString("product")%>']);
 <%
 	}
 %>
@@ -68,14 +69,14 @@ if(loginSession == null)
 <%		
 		if(request.getParameter("main_category") != null){
 %>
-			pre_main = <%=request.getParameter("main_category")%>;
+			pre_main = '<%=request.getParameter("main_category")%>';
 <%
 		}
 %>
 <%		
 		if(request.getParameter("subcategory") != null){
 %>
-			pre_sub = <%=request.getParameter("subcategory")%>;
+			pre_sub = '<%=request.getParameter("subcategory")%>';
 <%
 		}
 %>
@@ -83,24 +84,26 @@ if(loginSession == null)
 <%		
 		if(request.getParameter("product") != null){
 %>
-			pre_product = <%=request.getParameter("product")%>;
+			pre_product = '<%=request.getParameter("product")%>';
 <%
 		}
 %>
 
 
+		console.table(classify_data);
 		//sql에 가져온 json 형식의 데이터를 분리해서 저장한다
-		for(var x in classify_data){
-			main_data.add({"main_category": x["main_category"]});
-			sub_data.add({"main_category": x["main_category"], "subcategory": x["subcategory"]});
-			product_data.add(x);
+		for(var i = 0; i < classify_data.length ; i++){
+			main_data.push(classify_data[i][0]);
+			sub_data.push([classify_data[i][0], classify_data[i][1]]);
 		}
+		console.table(main_data);
+		console.table(sub_data);
 		
-		for(var x in main_data){
-			if(x[main_category] == pre_main){
-				$("#main_category").append("<option value = '" + x[main_category] + "' selected>"+x[main_category]+"</option>");
+		for(var i = 0; i < main_data.length ; i++){
+			if(main_data[i][0] == pre_main){
+				$("#main_category").append("<option value = '" + main_data[i]+ "' selected>"+ main_data[i]+ "</option>");
 			}
-			else $("#main_category").append("<option value = '" + x[main_category] + "'>"+x[main_category]+"</option>");
+			else $("#main_category").append("<option value = '" + main_data[i] + "'>"+ main_data[i] +"</option>");
     	}
 		
 		if(pre_main != null){
@@ -135,6 +138,8 @@ if(loginSession == null)
     	$("#newMain").hide();
     	$("#newSub").hide();
     	$("#newProduct").hide();
+    	$("#subcategory").empty().append("<option value = '1'>소분류를 선택하세요</option>");
+    	$("#product").empty().append("<option value = '1'>제품을 선택하세요</option>");
     	if($("#main_category option:selected").val() == '1'){
     		console.log("1");
     		return;
@@ -148,39 +153,39 @@ if(loginSession == null)
     		$("#newProduct").show('fast');
     		return;
     	}
-    	$("#subcategory").empty().append("<option value = '1'>소분류를 선택하세요</option>");
     	$("#subcategory").append("<option value = 'setSub'>직접선택</option>");
-    	$("#product").empty().append("<option value = '1'>제품을 선택하세요</option>");
-    	getValue = $("#main_category").val();
-    	for(var x in sub_data){
-    		if(x[main_category] != getValue)	continue;
-			if(x[subcategory] == pre_sub){
-				$("#subcategory").append("<option value = '" + x[subcategory] + "' selected>"+x[subcategory]+"</option>");
+    	getValue = $("#main_category option:selected").val();
+    	for(var i = 0; i < sub_data.length; i++){
+    		if(sub_data[i][0] != getValue)	continue;
+			if(sub_data[i][1] == pre_sub){
+				$("#subcategory").append("<option value = '" + sub_data[i][1] + "' selected>"+ sub_data[i][1] +"</option>");
 			}
-			else $("#subcategory").append("<option value = '" + x[subcategory] + "'>"+x[subcategory]+"</option>");
+			else $("#subcategory").append("<option value = '" + sub_data[i][1] + "'>"+ sub_data[i][1] +"</option>");
     	}
     }
 	function getProduct(){
+		$("#product").empty().append("<option value = '1'>제품을 선택하세요</option>");
+		$("#newMain").hide();
 		$("#newSub").hide();
     	$("#newProduct").hide();
-		if($("#product option:selected").val() == '1'){
+		if($("#subcategory option:selected").val() == '1'){
+			console.log('k');
     		return;
     	}
-    	else if($("#product option:selected").val() == 'setSub'){
+    	else if($("#subcategory option:selected").val() == 'setSub'){
     		$("#newSub").show('fast');
     		$("#newProduct").show('fast');
     		return;
     	}
-		$("#product").empty().append("<option value = '1'>제품을 선택하세요</option>");
 		$("#product").append("<option value = 'setProduct'>직접선택</option>");
-		getValueMain = $("#main_category").val();
-		getValueSub = $("#subcategory").val();
-    	for(var x in product_data){
-    		if(x[main_category] != getValueMain || x[subcategory] != getValueSub)	continue;
-			if(x[subcategory] == pre_sub){
-				$("#subcategory").append("<option value = '" + x[product] + "' selected>"+x[product]+"</option>");
+		getValueMain = $("#main_category option:selected").val();
+		getValueSub = $("#subcategory option:selected").val();
+    	for(var i = 0; i < classify_data.length; i++){
+    		if(classify_data[i][0] != getValueMain || classify_data[i][1] != getValueSub)	continue;
+			if(classify_data[i][1] == pre_product){
+				$("#product").append("<option value = '" + classify_data[i][2] + "' selected>"+ classify_data[i][2] +"</option>");
 			}
-			else $("#subcategory").append("<option value = '" + x[product] + "'>"+x[product]+"</option>");
+			else $("#product").append("<option value = '" + classify_data[i][2] + "'>"+ classify_data[i][2] +"</option>");
     	}
     }
 	function productCheck(){
@@ -196,19 +201,53 @@ if(loginSession == null)
 	}
 	
 	function addTag(){
-		console.log("check");
 		var value = $("input[name = inputTag]").val();
 		if(value == null)	return;
 		else{
-			taglist.add(value);
-			$("#showTaglist").append("<span class = 'tagDesign' onclick = 'deleteTag(this)'>"+value+"</span>");
+			taglist.push(value);
+			$("#showTaglist").append("<div class = 'tagDesign' onclick = 'deleteTag(this)'>"+value+"</div>");
 		}
 		$("input[name = inputTag]").val('');
 	}
 	
 	function deleteTag(e){
 		var value = $(e).text();
-		taglist.delete(value);
+		for(var i = 0; i < taglist.length; i++){
+			if(taglist[i] == value){
+				for(var j = i ; j < taglist.length - 1; j++){
+					taglist[j] = taglist[j+1];
+				}
+				taglist.pop();
+			}
+		}
+		$(e).remove();
+	}
+	
+	function addInfo(){
+		var value1 = $("input[name = inputInfo1]").val();
+		var value2 = $("input[name = inputInfo2]").val();
+		if(value1 == null || value2 == null)	return;
+		else{
+			infoListProperty.push(value1);
+			infoListValue.push(value2);
+			$("#showInfolist").append("<div onclick = 'deleteInfo(this)'><span class = 'infoDesign'>" + value1 + "</span><span class = 'infoDesign2'>" + value2 + "</span></div>");
+		}
+		$("input[name = inputInfo1]").val('');
+		$("input[name = inputInfo2]").val('');
+	}
+	
+	function deleteInfo(e){
+		var value = $(e).children('.infoDesign').text();
+		for(var i = 0; i < infoListProperty.length; i++){
+			if(infoListProperty[i] == value){
+				for(var j = i ; j < infoListProperty.length - 1; j++){
+					infoListProperty[j] = infoListProperty[j+1];
+					infoListValue[j] = infoListValue[j+1];
+				}
+				infoListProperty.pop();
+				infoListValue.pop();
+			}
+		}
 		$(e).remove();
 	}
 	
@@ -230,8 +269,16 @@ if(loginSession == null)
 			alert("제목을 입력하세요");
 			return false;
 		}
-		if($("input[name = evaluation_score]").val() == null){
+		if($("input[name = average_score]").val() == null){
 			alert("평가 점수를 입력하세요");
+			return false;
+		}
+		if(parseInt($("input[name = average_score]").val()) > 10){
+			alert("별점은 10이하여야 합니다.");
+			return false;
+		}
+		if(parseInt($("input[name = average_score]").val()) < 0){
+			alert("별점은 양수여야 합니다.");
 			return false;
 		}
 		if($("textarea[name = content]").val() == null){
@@ -241,13 +288,21 @@ if(loginSession == null)
 		
 		
 		
+		
 		var value = "";
-		for(var x in taglist){
-			console.log(x);
-			value = value + (x + ";");
+		for(var i = 0; i < taglist.length; i++){
+			console.log(taglist[i]);
+			value = value + (taglist[i] + ";");
 		}
 		$("input[name = tag]").val(value);
-		alert();
+		
+		var valueInfo = "";
+		for(var i = 0; i < infoListValue.length; i++){
+			console.log(infoListProperty[i] + " " + infoListValue[i]);
+			valueInfo = valueInfo + (infoListProperty[i] + ";" + infoListValue[i] + ";");
+		}
+		$("input[name = information]").val(valueInfo);
+		
 		return true;
 	}
 </script>
@@ -304,8 +359,9 @@ if(loginSession == null)
 <div id="classifyArea">
 	
 </div>
-<div id="content">
-	<form method = "post" action = "Write_content_db.jsp" onSubmit="return checkForm()" >
+<form method = "post" action = "Write_content_db.jsp" onSubmit="return checkForm()" >
+<div id = "content">
+<div>
 	<table border = "0">
 		<tr>
 			<td>메인 카테고리:</td>
@@ -343,31 +399,38 @@ if(loginSession == null)
 				<input type = "text" name = "title">
 			</td>
 		</tr>
-		<tr>
-			<td>태그 추가(상품에 대한 간단한 정보):</td>
-			<td>
-				<input type = "text" name = "inputTag" >
-				<div onclick = "addTag()">입력하기</div>
-				<input type = "hidden" name = "tag">
-			</td>
-			<td>
-				<div id = "showTaglist"></div>
-			</td>
-		</tr>
+		
 		<tr>
 			<td>총점 입력:</td>
 			<td>
-				<input type = "text" name = "evaluation_score">/10
+				<input type = "text" name = "average_score">/10
 			</td>
 		</tr>
 		
 	</table>
 		내용:<br>
 		<hr>
-		<textarea name = "content" rows = "50" cols = "200"></textarea><br>
-		<input type = "submit" value = "등록하기"> <input type = "reset" value = "초기화 하기">
-	</form>
+		<textarea name = "content" rows = "40" cols = "150"></textarea><br>
 </div>
+<aside>
+	<div>
+	태그 추가(상품에 대한 간단한 정보):
+		<div id = "showTaglist"></div>
+		<input type = "text" name = "inputTag">
+		<div onclick = "addTag()">입력하기</div>
+		<input type = "hidden" name = "tag">
+	</div>
+	<hr>
+	<div>
+	정보 추가:
+		<div id = "showInfolist"></div>
+		<input type = "text" name = "inputInfo1"> <input type = "text" name = "inputInfo2">
+		<div onclick = "addInfo()">입력하기</div>
+		<input type = "hidden" name = "information">
+	</div>
+</aside>
+<center><input type = "submit" value = "등록하기"> <input type = "reset" value = "초기화 하기"></center>
+</form>
 
 </body>
 
