@@ -21,7 +21,7 @@
             location.href = "Notification.jsp";
         });
         $("#classify").click(function() {
-            
+        	location.href = "Category.jsp";
         });
         $("#leaderboard").click(function() {
             location.href = "Leaderboard.jsp";

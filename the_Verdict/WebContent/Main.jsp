@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" session="false" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="java.io.*" %>
 <%@ page import="java.math.RoundingMode" %>
 <%@ page import="java.text.DecimalFormat" %>
 <% request.setCharacterEncoding("utf-8"); %>
@@ -68,7 +69,7 @@
 						else
 						{
 						%>
-						<img class="profilePicture" src="<% rs.getString("profile_picture"); %>">
+						<img class="profilePicture" src="ProfilePhotoProcess.jsp?nickname=<%= nickname %>" onerror="this.src='Image/NoProfileImage.png';">
 						<%
 						}
 					}
@@ -165,7 +166,7 @@
 				else
 				{
 				%>
-				<img class="bestReviewImage" src="<% rs.getString("picture"); %>">
+				<img class="bestReviewImage" src="<%= rs.getString("picture") %>">
 				<%
 				}
 				%>
@@ -371,7 +372,7 @@ else
             location.href = "Notification.jsp";
         });
         $("#classify").click(function() {
-            
+        	location.href = "Category.jsp";
         });
         $("#leaderboard").click(function() {
             location.href = "Leaderboard.jsp";

@@ -82,7 +82,7 @@
 						else
 						{
 						%>
-						<img class="profilePicture" src="<% rs.getString("profile_picture"); %>">
+						<img class="profilePicture" src="ProfilePhotoProcess.jsp?nickname=<%= nickname %>" onerror="this.src='Image/NoProfileImage.png';">
 						<%
 						}
 					}
@@ -142,9 +142,7 @@
 	<div id = "QnA">문의하기</div>
 	<div id = "write">글쓰기</div>
 </div>
-<div id="classifyArea">
-	
-</div>
+
 <div id="content">
 
 <h3 id="halloffameTab">Leaderboard</h3>
@@ -177,12 +175,14 @@
 	catch(Exception e) {
 		out.println("DB 연동 오류입니다. : " + e.getMessage());
 	}
-	int count = 1;
+	int count = 0;
 	int rank = 1;
 	int previousRating = -1;
 	
 	while(rs.next())
 	{
+		count++;
+		
 		int rating = Integer.parseInt(rs.getString("rating"));
 		
 		if(rating != previousRating)
@@ -276,10 +276,18 @@
 			</tr>
 <%		
 		}
-		count++;
 	}
 %>
 </table>
+
+<%
+	if(count == 0)
+	{
+		%>
+		<h1 id="noRanking">리더보드에 등록된 사용자가 없어요!</h1>
+		<%
+	}
+%>
 
 <button id="previousPage">이전 페이지</button>
 <button id="nextPage">다음 페이지</button>
@@ -295,7 +303,7 @@
             location.href = "Notification.jsp";
         });
         $("#classify").click(function() {
-            
+        	location.href = "Category.jsp";
         });
         $("#leaderboard").click(function() {
             location.href = "Leaderboard.jsp";

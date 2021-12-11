@@ -61,6 +61,7 @@ a
 	width: 60px;
 	height: 60px;
 	margin: 0px;
+	border-radius: 30px;
 }
 
 .topTier
@@ -308,7 +309,7 @@ a
 	left: 100px;
 	width: 100px;
 	height: 100px;
-	border-radius: 25px;
+	border-radius: 50px;
 }
 
 #profileNickname

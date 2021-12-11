@@ -84,7 +84,7 @@
 						else
 						{
 						%>
-						<img class="profilePicture" src="<% rs.getString("profile_picture"); %>">
+						<img class="profilePicture" src="ProfilePhotoProcess.jsp?nickname=<%= nickname %>" onerror="this.src='Image/NoProfileImage.png';">
 						<%
 						}
 					}
@@ -177,6 +177,13 @@
 	<button id="introductionSubmit" type="submit">자기소개 변경</button>
 </form>
 
+<h1 id="pictureNotice">프로필 사진 변경</h1>
+<form action="profile_picture" method="post" enctype="multipart/form-data">
+	<input type="file" id="image" name="image" accept="image/*">
+	<img id="imagePreview" src="Image/NoProfileImage.png">
+	<button id="pictureSubmit" type="submit" disabled="disabled">프로필 사진 변경</button>
+</form>
+
 <h1 id="passwordNotice">비밀번호 변경</h1>
 <form action="Setting-Password-db.jsp" method="post">
 	<input class="joinInfo" id="userOriginalPwd" name="userOriginalPwd" type="password" placeholder="기존 비밀번호" autocomplete="off">
@@ -203,7 +210,7 @@
             location.href = "Notification.jsp";
         });
         $("#classify").click(function() {
-            
+        	location.href = "Category.jsp";
         });
         $("#leaderboard").click(function() {
             location.href = "Leaderboard.jsp";
@@ -257,6 +264,19 @@
             	$("#introductionSubmit").attr("disabled", false);
             }
         });
+        
+        document.getElementById("image").onchange = function () {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                // get loaded data and render thumbnail.
+                document.getElementById("imagePreview").src = e.target.result;
+            };
+
+            // read the image file as a data URL.
+            reader.readAsDataURL(this.files[0]);
+            $("#pictureSubmit").attr("disabled", false);
+        };
         
         function buttonCheck() {
     		if(originalPwdValid && pwdValid && pwdCheckValid)

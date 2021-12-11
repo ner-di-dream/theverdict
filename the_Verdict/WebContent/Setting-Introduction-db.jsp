@@ -84,7 +84,7 @@
 						else
 						{
 						%>
-						<img class="profilePicture" src="<% rs.getString("profile_picture"); %>">
+						<img class="profilePicture" src="ProfilePhotoProcess.jsp?nickname=<%= nickname %>" onerror="this.src='Image/NoProfileImage.png';">
 						<%
 						}
 					}

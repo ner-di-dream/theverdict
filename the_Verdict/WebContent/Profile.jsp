@@ -84,7 +84,7 @@
 						else
 						{
 						%>
-						<img class="profilePicture1" src="<% rs.getString("profile_picture"); %>">
+						<img class="profilePicture1" src="ProfilePhotoProcess.jsp?nickname=<%= nickname %>" onerror="this.src='Image/NoProfileImage.png';">
 						<%
 						}
 					}
@@ -234,7 +234,7 @@
 				else
 				{
 				%>
-				<img class="profilePicture" src="<% rs.getString("profile_picture"); %>">
+				<img class="profilePicture" src="ProfilePhotoProcess.jsp?nickname=<%= nickname %>" onerror="this.src='Image/NoProfileImage.png';">
 				<%
 				}
 				
@@ -419,7 +419,7 @@
             location.href = "Notification.jsp";
         });
         $("#classify").click(function() {
-            
+        	location.href = "Category.jsp";
         });
         $("#leaderboard").click(function() {
             location.href = "Leaderboard.jsp";

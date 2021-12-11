@@ -119,7 +119,7 @@ a
   	position: absolute;
   	top: 0px;
   	right: 75px;
-  	cursor: pointer;
+	border-radius: 30px;
 }
 
 #myReview
@@ -270,6 +270,17 @@ a
 	margin-left: auto;
 	margin-right: auto;
 	width: auto;
+}
+
+#noRanking
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 36px;
+	font-weight: 900;
+	position: absolute;
+	top: 200px;
+	left: 50%;
+	transform: translate(-50%, 0);
 }
 
 #previousPage

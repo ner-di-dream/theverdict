@@ -239,6 +239,15 @@ a
 	height: auto;
 }
 
+#error
+{
+	position: relative;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 36px;
+	font-weight: 900;
+	text-align: center;
+}
+
 .noReviews
 {
 	position: relative;
@@ -248,29 +257,103 @@ a
 	text-align: center;
 }
 
-.noRanking
+#leftTab
 {
-	position: relative;
-	font-family: 'Noto Sans KR', sans-serif;
-  	font-size: 36px;
-	font-weight: 900;
-	text-align: center;
-}
-
-#bestReviewTab
-{
-	font-family: 'Outfit', sans-serif;
-  	font-size: 24px;
-	font-weight: 400;
-	margin: 0px;
 	margin-left: 60px;
 }
 
-#bestReviewLine
+.categoryTab
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 400;
+	margin: 0px;
+	cursor: pointer;
+	float: left;
+}
+
+.categoryLine
 {
 	left: 50px;
 	width: 1800px;
+	margin-top: 50px;
 	margin-bottom: 50px;
+}
+
+.bestCategory
+{
+	position: relative;
+	left: 50px;
+	bottom: 0px;
+	width: 1770px;
+	height: 120px;
+	margin: 0px;
+	margin-bottom: 50px;
+	border: 2px solid black;
+}
+
+.bestCategoryImage
+{
+	position: relative;
+	top: 10px;
+	left: 15px;
+	width: 200px;
+	height: 100px;
+	margin: 0px;
+}
+
+.bestCategoryName
+{
+	position: relative;
+	top: -75px;
+	left: 250px;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 36px;
+	font-weight: 900;
+	width: 600px;
+	margin: 0px;
+	white-space: normal;
+ 	text-overflow: ellipsis;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.bestCategoryAvgScore
+{
+	position: relative;
+	top: -125px;
+	left: 900px;
+	font-family: 'Outfit', sans-serif;
+  	font-size: 36px;
+	font-weight: 900;
+	width: 400px;
+	margin: 0px;
+}
+
+.bestCategoryTotalReviews
+{
+	position: relative;
+	top: -171px;
+	left: 1300px;
+	font-family: 'Outfit', sans-serif;
+  	font-size: 36px;
+	font-weight: 900;
+	width: 400px;
+	margin: 0px;
+	text-align: right;
+}
+
+.bestCategoryTotalReviews2
+{
+	position: relative;
+	top: -122px;
+	left: 1300px;
+	font-family: 'Outfit', sans-serif;
+  	font-size: 36px;
+	font-weight: 900;
+	width: 400px;
+	margin: 0px;
+	text-align: right;
 }
 
 .bestReview
@@ -529,29 +612,36 @@ a
 	margin: 0px;
 }
 
-#halloffameTab
-{
-	font-family: 'Outfit', sans-serif;
-  	font-size: 24px;
-	font-weight: 400;
-	margin: 0px;
-	margin-left: 60px;
-}
-
-#halloffameLine
-{
-	left: 50px;
-	width: 1800px;
-	margin-bottom: 50px;
-}
-
-#halloffame
+#previousPage
 {
 	font-family: 'Noto Sans KR', sans-serif;
-  	font-size: 24px;
-	font-weight: 400;
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	width: auto;
+	font-size: 24px;
+	font-weight: 900;
+	background-color: deepskyblue;
+	color: white;
+	position: relative;
+	top: 50px;
+	left: 740px;
+	border: none;
+	width: 180px;
+	height: 60px;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+#nextPage
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+	background-color: deepskyblue;
+	color: white;
+	position: relative;
+	top: 50px;
+	left: 800px;
+	border: none;
+	width: 180px;
+	height: 60px;
+	border-radius: 10px;
+	cursor: pointer;
 }
