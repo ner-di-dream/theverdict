@@ -23,16 +23,7 @@
 		HttpSession loginSession = request.getSession(false);
 		String nickname = null;
 	
-		if(loginSession == null)
-		{
-		%>
-		<script>
-			alert("로그인이 필요합니다.");
-			document.location.href = "Main.jsp";
-		</script>
-		<%
-		}
-		else
+		if(loginSession != null)
 		{
 			nickname = (String)loginSession.getAttribute("nickname");
 		}

@@ -369,7 +369,7 @@ a
 .bestReviewContent
 {
 	position: relative;
-	top: -50px;
+	top: 0px;
 	left: 100px;
 	font-family: 'Noto Sans KR', sans-serif;
   	font-size: 24px;
@@ -389,7 +389,7 @@ a
   	position: relative;
   	float: right;
   	top: -50px;
-  	right: 100px;
+  	left: 100px;
   	width: 500px;
   	text-align: center;
 	color: black;
@@ -403,9 +403,8 @@ a
   	font-size: 12px;
 	font-weight: 400;
   	position: relative;
-  	top: 100px;
-  	right: -1325px;
-  	display: block;
+  	top: -250px;
+  	left: 100px;
   	text-align: center;
 	background: #1abc9c;
 	color: white;
@@ -440,8 +439,8 @@ a
   	font-size: 12px;
 	font-weight: 400;
   	position: relative;
-  	top: 75px;
-  	right: -1325px;
+  	top: -250px;
+  	left: 100px;
   	text-align: center;
 	background: #f39d12;
 	color: white;
@@ -449,10 +448,11 @@ a
 	width: 225px;
 	height: 20px;
 	margin: 0px;
-	margin-bottom: 0px;
+	margin-bottom: 25px;
 	white-space: normal;
  	text-overflow: ellipsis;
  	overflow: hidden;
+ 	float: left;
 }
 
 .bestReviewInfo2
@@ -461,8 +461,8 @@ a
   	font-size: 12px;
 	font-weight: 400;
   	position: relative;
-  	top: 50px;
-  	right: -1600px;
+  	top: -250px;
+  	left: 150px;
   	text-align: center;
 	background: #bee5ff;
 	color: black;
@@ -470,7 +470,7 @@ a
 	width: 225px;
 	height: 20px;
 	margin: 0px;
-	margin-bottom: 0px;
+	margin-bottom: 25px;
 	white-space: normal;
  	text-overflow: ellipsis;
  	overflow: hidden;
@@ -562,4 +562,41 @@ a
 	white-space: normal;
  	text-overflow: ellipsis;
  	overflow: hidden;
+}
+
+.div2
+{
+	width: 1200px;
+	float: left;
+}
+
+.div3
+{
+	height: 300px;
+}
+
+.div4
+{
+	
+}
+
+.div5
+{
+	left: 1300px;
+	display: inline-block;
+}
+
+.div6
+{
+
+}
+
+.div7
+{
+	width: 500px;
+}
+
+.div8
+{
+	width: 500px;
 }

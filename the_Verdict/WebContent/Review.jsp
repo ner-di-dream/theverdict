@@ -135,7 +135,6 @@
 </div>
 
 <div id="content">
-
 		
 <%	
 		String idString = request.getParameter("id");
@@ -158,13 +157,16 @@
 			{
 				reviewCount++;
 %>
-		<div>
+		<div class="div1">
 			<h3 class="categoryTab" id="leftTab" onClick="location.href='Category.jsp'">분류</h3>
 			<h3 class="categoryTab" onClick="location.href='Category.jsp?category=<%= rs.getString("main_category") %>'">&nbsp;> <%= rs.getString("main_category") %></h3>
 			<h3 class="categoryTab" onClick="location.href='Category.jsp?category=<%= rs.getString("subcategory") %>'">&nbsp;> <%= rs.getString("subcategory") %></h3>
 			<h3 class="categoryTab" onClick="location.href='Category.jsp?category=<%= rs.getString("product") %>'">&nbsp;> <%= rs.getString("product") %></h3>
 		</div>
 			<hr class="categoryLine">
+		<div class="div6">
+		<div class="div2">
+			<div class="div3">
 				<%
 				if(rs.getString("picture") == null)
 				{
@@ -181,45 +183,6 @@
 				%>
 				
 				<h3 class="bestReviewTitle"><% out.print(rs.getString("title")); %></h3>
-
-				<%
-					float avgScore = Float.parseFloat(rs.getString("average_score"));
-					DecimalFormat df = new DecimalFormat("0.00");
-					df.setRoundingMode(RoundingMode.DOWN);
-				%>
-				
-				<div class="bestReviewAvgScore"><h3><% out.print("Verdict Score : ★ " + df.format(avgScore)); %></h3></div>
-				
-				<%
-					String tag = rs.getString("tag");
-					String tagSplit[] = tag.split(";");
-					
-					for(int i = 0; i < tagSplit.length; i++)
-					{
-				%>
-				<div class="bestReviewTag"><% out.print("#" + tagSplit[i]); %></div>
-				<%
-					}
-					
-					%>
-					
-					<div class="blank"></div>
-					
-					<%
-					tag = rs.getString("information");
-					String infoSplit[] = tag.split(";");
-					
-					for(int i = 0; i < infoSplit.length; i += 2)
-					{
-				%>
-				
-				<div class="bestReviewInfo1"><% out.print(infoSplit[i]); %></div>
-				<div class="bestReviewInfo2"><% out.print(infoSplit[i + 1]); %></div>
-				
-				<%
-					}
-				%>
-				
 				<img class="bestReviewLikeImg" src="Image/like.png">
 				<h3 class="bestReviewLike"><% out.print(rs.getString("like_amount")); %></h3>
 				<img class="bestReviewDislikeImg" src="Image/dislike.png">
@@ -270,7 +233,10 @@
 				<h3 class="bestReviewWriter"><%= rs.getString("nickname") %></h3>
 				
 				<h3 class="bestReviewDate"><%= rs.getString("date") %></h3>
+			</div>
+				<div class="div4">
 				<h3 class="bestReviewContent">
+				
 				<% 
 					String content = rs.getString("content");
 					content = content.replace("\n", "<br>");
@@ -278,7 +244,51 @@
 					out.print(content);
 				%>
 				</h3>
-	<%
+				</div>
+			</div>
+			<div class="div5">
+				<%
+					float avgScore = Float.parseFloat(rs.getString("average_score"));
+					DecimalFormat df = new DecimalFormat("0.00");
+					df.setRoundingMode(RoundingMode.DOWN);
+				%>
+				
+				<div class="bestReviewAvgScore"><h3><% out.print("Verdict Score : ★ " + df.format(avgScore)); %></h3></div>
+				<div class="div7">
+				<%
+					String tag = rs.getString("tag");
+					String tagSplit[] = tag.split(";");
+					
+					for(int i = 0; i < tagSplit.length; i++)
+					{
+				%>
+					<div class="bestReviewTag"><% out.print("#" + tagSplit[i]); %></div>
+				<%
+					}
+					
+				%>
+				</div>
+					<div class="blank"></div>
+					<div class="div8">
+					<%
+					tag = rs.getString("information");
+					String infoSplit[] = tag.split(";");
+					
+					for(int i = 0; i < infoSplit.length; i += 2)
+					{
+					%>
+					<div class="div9">
+					<div class="bestReviewInfo1"><% out.print(infoSplit[i]); %></div>
+					<div class="bestReviewInfo2"><% out.print(infoSplit[i + 1]); %></div>
+					</div>
+					<%
+					}
+					%>
+					</div>
+			</div>
+			</div>
+				
+				<%
 			}
 			if(reviewCount == 0)
 			{
