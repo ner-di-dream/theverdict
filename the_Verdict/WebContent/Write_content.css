@@ -181,3 +181,10 @@ a
 	width: 1920px;
 	height: auto;
 }
+#fromArea
+{
+	float : left;
+}
+#tagArea{
+	display: inline-block;
+}

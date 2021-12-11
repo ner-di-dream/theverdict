@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" session="false"%>
 <%@ page import = "java.sql.*" %>
+<% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -361,7 +362,7 @@ if(loginSession == null)
 </div>
 <form method = "post" action = "Write_content_db.jsp" onSubmit="return checkForm()" >
 <div id = "content">
-<div>
+<div id = "fromArea">
 	<table border = "0">
 		<tr>
 			<td>메인 카테고리:</td>
@@ -412,7 +413,7 @@ if(loginSession == null)
 		<hr>
 		<textarea name = "content" rows = "40" cols = "150"></textarea><br>
 </div>
-<aside>
+<div id = "tagArea">
 	<div>
 	태그 추가(상품에 대한 간단한 정보):
 		<div id = "showTaglist"></div>
@@ -428,8 +429,9 @@ if(loginSession == null)
 		<div onclick = "addInfo()">입력하기</div>
 		<input type = "hidden" name = "information">
 	</div>
-</aside>
-<center><input type = "submit" value = "등록하기"> <input type = "reset" value = "초기화 하기"></center>
+</div>
+	<center><input type = "submit" value = "등록하기"> <input type = "reset" value = "초기화 하기"></center>
+</div>
 </form>
 
 </body>
