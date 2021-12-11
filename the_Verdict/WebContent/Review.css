@@ -1,0 +1,565 @@
+@charset "UTF-8";
+
+html
+{
+	margin: 0px;
+}
+
+body
+{
+	white-space : nowrap;
+	margin: 0px;
+}
+
+a
+{
+	text-decoration: none;
+	color: inherit;
+}
+
+#topBar
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 1920px;
+	height: 80px;
+	background-color: #c03a2b;
+	margin: 0px;
+}
+
+#title
+{
+	font-family: 'Outfit', sans-serif;
+	font-size: 40px;
+	color: white;
+	position: absolute;
+	top: 15px;
+	left: 20px;
+	margin: 0px;
+	cursor: pointer;
+}
+
+#search
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	font-weight: 400;
+	position: absolute;
+	top: 12px;
+	left: 400px;
+	width: 800px;
+	height: 50px;
+	background-color: transparent;
+	color: white;
+	border: none;
+	border-bottom: 2px solid white;
+}
+
+#search::placeholder
+{
+	color: white;
+	opacity: 1;
+}
+
+#searchIcon
+{
+	position: absolute;
+	top: 20px;
+	left: 330px;
+	width: 40px;
+	height: 40px;
+	-webkit-filter: invert(100%);
+	cursor: pointer;
+}
+
+#login
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+	color: white;
+	position: absolute;
+	top: 23px;
+	right: 40px;
+	margin: 0px;
+	cursor: pointer;
+}
+
+.profilePicture
+{
+	position: absolute;
+	top: 10px;
+	right: 160px;
+	width: 60px;
+	height: 60px;
+	margin: 0px;
+	border-radius: 30px;
+}
+
+.topTier
+{
+	position: absolute;
+	top: 10px;
+	right: 240px;
+	width: 60px;
+	height: 60px;
+	margin: 0px;
+}
+
+#nickname
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+	color: white;
+	position: absolute;
+	top: 23px;
+	right: 320px;
+	margin: 0px;
+	height: 80px;
+	text-align: right;
+	cursor: pointer;
+}
+
+#logout
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	font-weight: 900;
+	color: white;
+	position: absolute;
+	top: 23px;
+	right: 40px;
+	margin: 0px;
+	cursor: pointer;
+}
+
+#topMenu
+{
+	position: absolute;
+	top: 80px;
+	background-color: #dcdcdc;
+	width: 1920px;
+	height: 200px;
+	z-index: 10;
+}
+
+#myProfile
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 900;
+  	position: absolute;
+  	top: 0px;
+  	right: 75px;
+  	cursor: pointer;
+}
+
+#myReview
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 900;
+  	position: absolute;
+  	top: 50px;
+  	right: 75px;
+  	cursor: pointer;
+}
+
+#setting
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 900;
+  	position: absolute;
+  	top: 100px;
+  	right: 75px;
+  	cursor: pointer;
+}
+
+#notification
+{
+  	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: absolute;
+  	top: 100px;
+  	left: 50px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #c03a2b;
+	color: white;
+	padding: 2px;
+	width: 300px;
+	height: 20px;  
+}
+
+#classify
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: absolute;
+  	top: 100px;
+  	left: 400px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #c03a2b;
+	color: white;
+	padding: 2px;
+	width: 300px;
+	height: 20px;  
+}
+
+#leaderboard
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: absolute;
+  	top: 100px;
+  	left: 750px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #c03a2b;
+	color: white;
+	padding: 2px;
+	width: 300px;
+	height: 20px;  
+}
+
+#QnA
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: absolute;
+  	top: 100px;
+  	left: 1100px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #c03a2b;
+	color: white;
+	padding: 2px;
+	width: 300px;
+	height: 20px;  
+}
+
+#write
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: absolute;
+  	top: 100px;
+  	left: 1450px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #8080ff;
+	color: white;
+	padding: 2px;
+	width: 400px;
+	height: 20px;  
+}
+
+#content
+{
+	background-color: white;
+	position: relative;
+	top: 160px;
+	width: 1920px;
+	height: auto;
+	display: inline-block;
+}
+
+.reviewContent
+{
+	background-color: white;
+	position: relative;
+	top: 0px;
+	width: 1920px;
+	height: auto;
+	display: inline-block;
+}
+
+#leftTab
+{
+	margin-left: 60px;
+}
+
+.categoryTab
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 400;
+	margin: 0px;
+	cursor: pointer;
+	float: left;
+}
+
+.categoryLine
+{
+	left: 50px;
+	width: 1800px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.noReviews
+{
+	position: relative;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 36px;
+	font-weight: 900;
+	text-align: center;
+}
+
+#bestReviewTab
+{
+	font-family: 'Outfit', sans-serif;
+  	font-size: 24px;
+	font-weight: 400;
+	margin: 0px;
+	margin-left: 60px;
+}
+
+#bestReviewLine
+{
+	left: 50px;
+	width: 1800px;
+	margin-bottom: 50px;
+}
+
+.bestReview
+{
+	position: relative;
+	left: 50px;
+	bottom: 0px;
+	width: 1770px;
+	height: 240px;
+	margin: 0px;
+	margin-bottom: 50px;
+	border: 2px solid black;
+}
+
+.bestReviewImage
+{
+	position: absolute;
+	top: 100px;
+	left: 100px;
+	width: 540px;
+	height: 270px;
+	margin: 0px;
+}
+
+.bestReviewTitle
+{
+	position: absolute;
+	top: 105px;
+	left: 700px;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 32px;
+	font-weight: 900;
+	width: 600px;
+	margin: 0px;
+	white-space: normal;
+}
+
+.bestReviewContent
+{
+	position: relative;
+	top: -50px;
+	left: 100px;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 400;
+	width: 1100px;
+	height: auto;
+	margin: 0px;
+	white-space: normal;
+	display: inline-block;
+}
+
+.bestReviewAvgScore
+{
+	font-family: 'Outfit', sans-serif;
+  	font-size: 42px;
+	font-weight: 900;
+  	position: relative;
+  	float: right;
+  	top: -50px;
+  	right: 100px;
+  	width: 500px;
+  	text-align: center;
+	color: black;
+	margin: 0px;
+	margin-bottom: 200px;
+}
+
+.bestReviewTag
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: relative;
+  	top: 100px;
+  	right: -1325px;
+  	display: block;
+  	text-align: center;
+	background: #1abc9c;
+	color: white;
+	padding: 2px;
+	width: 500px;
+	height: 20px;
+	margin: 0px;
+	margin-bottom: 25px;
+	white-space: normal;
+ 	text-overflow: ellipsis;
+ 	overflow: hidden;
+}
+
+.blank
+{
+	position: relative;
+	width: 50px;
+	height: 50px;
+}
+
+.blank2
+{
+	position: relative;
+	width: 100px;
+	height: 100px;
+	top: 150px;
+}
+
+.bestReviewInfo1
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: relative;
+  	top: 75px;
+  	right: -1325px;
+  	text-align: center;
+	background: #f39d12;
+	color: white;
+	padding: 2px;
+	width: 225px;
+	height: 20px;
+	margin: 0px;
+	margin-bottom: 0px;
+	white-space: normal;
+ 	text-overflow: ellipsis;
+ 	overflow: hidden;
+}
+
+.bestReviewInfo2
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: relative;
+  	top: 50px;
+  	right: -1600px;
+  	text-align: center;
+	background: #bee5ff;
+	color: black;
+	padding: 2px;
+	width: 225px;
+	height: 20px;
+	margin: 0px;
+	margin-bottom: 0px;
+	white-space: normal;
+ 	text-overflow: ellipsis;
+ 	overflow: hidden;
+}
+
+.bestReviewLikeImg
+{
+	position: absolute;
+	top: 180px;
+	left: 700px;
+	width: 40px;
+	height: 40px;
+}
+
+.bestReviewLike
+{
+	font-family: 'Outfit', sans-serif;
+  	font-size: 24px;
+	font-weight: 900;
+  	position: absolute;
+  	top: 185px;
+  	left: 750px;
+  	text-align: center;
+	color: black;
+	width: 100px;
+	margin: 0px;
+}
+
+.bestReviewDislikeImg
+{
+	position: absolute;
+	top: 180px;
+	left: 900px;
+	width: 40px;
+	height: 40px;
+}
+
+.bestReviewDislike
+{
+	font-family: 'Outfit', sans-serif;
+  	font-size: 24px;
+	font-weight: 900;
+  	position: absolute;
+  	top: 185px;
+  	left: 950px;
+  	text-align: center;
+	color: black;
+	width: 100px;
+	margin: 0px;
+}
+
+.topTier
+{
+	position: absolute;
+	top: 250px;
+	left: 700px;
+	width: 60px;
+	height: 60px;
+	margin: 0px;
+}
+
+.bestReviewWriter
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 400;
+  	position: absolute;
+  	top: 260px;
+  	left: 780px;
+	color: black;
+	width: 400px;
+	margin: 0px;
+	white-space: normal;
+ 	text-overflow: ellipsis;
+ 	overflow: hidden;
+}
+
+.bestReviewDate
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 24px;
+	font-weight: 400;
+  	position: absolute;
+  	top: 330px;
+  	left: 700px;
+	color: black;
+	width: 225px;
+	margin: 0px;
+	white-space: normal;
+ 	text-overflow: ellipsis;
+ 	overflow: hidden;
+}

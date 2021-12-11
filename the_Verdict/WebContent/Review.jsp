@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="Main.css">
+<link rel="stylesheet" href="Review.css">
 <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&family=Outfit&display=swap" rel="stylesheet">
 <title>The Verdict</title>
@@ -136,12 +136,15 @@
 
 <div id="content">
 
-<h3 id="bestReviewTab">Best Review of the week</h3>
-<hr id="bestReviewLine">
-
+		
 <%	
+		String idString = request.getParameter("id");
+		int id = 0;
+	if(idString != null)
+	{
+		id = Integer.parseInt(idString);
 		try {
-			sql = "select * from board_data where date between date_add(now(), interval -1 week) and now() order by (like_amount - dislike_amount) desc limit 3";
+			sql = "select * from board_data where id = " + id;
 			rs = stmt.executeQuery(sql);
 		}
 		catch(Exception e) {
@@ -155,11 +158,13 @@
 			{
 				reviewCount++;
 %>
-			<div class="bestReview">
-				<h3 class="bestReviewCategory">
-				<% out.print(rs.getString("main_category")); %> > <% out.print(rs.getString("subcategory")); %> > <% out.print(rs.getString("product")); %>
-				</h3>
-				
+		<div>
+			<h3 class="categoryTab" id="leftTab" onClick="location.href='Category.jsp'">분류</h3>
+			<h3 class="categoryTab" onClick="location.href='Category.jsp?category=<%= rs.getString("main_category") %>'">&nbsp;> <%= rs.getString("main_category") %></h3>
+			<h3 class="categoryTab" onClick="location.href='Category.jsp?category=<%= rs.getString("subcategory") %>'">&nbsp;> <%= rs.getString("subcategory") %></h3>
+			<h3 class="categoryTab" onClick="location.href='Category.jsp?category=<%= rs.getString("product") %>'">&nbsp;> <%= rs.getString("product") %></h3>
+		</div>
+			<hr class="categoryLine">
 				<%
 				if(rs.getString("picture") == null)
 				{
@@ -176,195 +181,129 @@
 				%>
 				
 				<h3 class="bestReviewTitle"><% out.print(rs.getString("title")); %></h3>
-				<h3 class="bestReviewContent"><% out.print(rs.getString("content")); %></h3>
-				
+
 				<%
 					float avgScore = Float.parseFloat(rs.getString("average_score"));
 					DecimalFormat df = new DecimalFormat("0.00");
 					df.setRoundingMode(RoundingMode.DOWN);
 				%>
 				
-				<h3 class="bestReviewAvgScore"><% out.print("Verdict Score : ★ " + df.format(avgScore)); %></h3>
+				<div class="bestReviewAvgScore"><h3><% out.print("Verdict Score : ★ " + df.format(avgScore)); %></h3></div>
 				
 				<%
 					String tag = rs.getString("tag");
 					String tagSplit[] = tag.split(";");
+					
+					for(int i = 0; i < tagSplit.length; i++)
+					{
 				%>
-				
-				<div class="bestReviewTag1"><% if(tagSplit.length >= 1) out.print("#" + tagSplit[0]); %></div>
-				
-				<div class="bestReviewTag2"><% if(tagSplit.length >= 2) out.print("#" + tagSplit[1]); %></div>
-				
-				<div class="bestReviewTag3"><% if(tagSplit.length >= 3) out.print("#" + tagSplit[2]); %></div>
-				
+				<div class="bestReviewTag"><% out.print("#" + tagSplit[i]); %></div>
 				<%
+					}
+					
+					%>
+					
+					<div class="blank"></div>
+					
+					<%
 					tag = rs.getString("information");
 					String infoSplit[] = tag.split(";");
+					
+					for(int i = 0; i < infoSplit.length; i += 2)
+					{
 				%>
 				
-				<div class="bestReviewInfo1"><% if(infoSplit.length >= 2) out.print("#" + infoSplit[1]); %></div>
+				<div class="bestReviewInfo1"><% out.print(infoSplit[i]); %></div>
+				<div class="bestReviewInfo2"><% out.print(infoSplit[i + 1]); %></div>
 				
-				<div class="bestReviewInfo2"><% if(infoSplit.length >= 4) out.print("#" + infoSplit[3]); %></div>
-				
-				<div class="bestReviewInfo3"><% if(infoSplit.length >= 6) out.print("#" + infoSplit[5]); %></div>
+				<%
+					}
+				%>
 				
 				<img class="bestReviewLikeImg" src="Image/like.png">
 				<h3 class="bestReviewLike"><% out.print(rs.getString("like_amount")); %></h3>
 				<img class="bestReviewDislikeImg" src="Image/dislike.png">
 				<h3 class="bestReviewDislike"><% out.print(rs.getString("dislike_amount")); %></h3>
-			</div>
+				
+				<%
+				ResultSet rs2 = null;
+				try {
+					Class.forName("com.mysql.jdbc.Driver");
+					conn = DriverManager.getConnection(url, "admin", "0000");
+					stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+					sql = "select * from user_data where nickname = '" + rs.getString("nickname") + "'";
+					rs2 = stmt.executeQuery(sql);
+				}
+				catch(Exception e) {
+					out.println("DB 연동 오류입니다. : " + e.getMessage());
+				}
+				
+				int rating = 0;
+				if(rs2 != null)
+				{
+					while(rs2.next())
+					{
+						rating = Integer.parseInt(rs2.getString("rating"));
+					}
+				}
+				
+				if(rating >= 3000)
+				{
+				%>
+					<img class="topTier" src="Image/Tier_27.png">
+				<%
+				}
+				else if(rating >= 2500)
+				{
+				%>
+					<img class="topTier" src="Image/Tier_26.png">
+				<%
+				}
+				else
+				{
+				%>
+					<img class="topTier" src="Image/Tier_<%= (int)(rating / 100) + 1 %>.png">
+				<%
+				}
+				%>
+				
+				<h3 class="bestReviewWriter"><%= rs.getString("nickname") %></h3>
+				
+				<h3 class="bestReviewDate"><%= rs.getString("date") %></h3>
+				<h3 class="bestReviewContent">
+				<% 
+					String content = rs.getString("content");
+					content = content.replace("\n", "<br>");
+					content = content.replace(" ", "&nbsp;");
+					out.print(content);
+				%>
+				</h3>
 	<%
 			}
 			if(reviewCount == 0)
 			{
 				%>
-				<h3 class="noReviews">이번 주에 작성된 리뷰가 없어요!</h3>
+				<h3 class="noReviews">해당 리뷰를 찾을 수 없습니다.</h3>
 				<%
 			}
 		}
 		else 
 		{
 			%>
-			<h3 class="noReviews">이번 주에 작성된 리뷰가 없어요!</h3>
+			<h3 class="noReviews">해당 리뷰를 찾을 수 없습니다.</h3>
 			<%	
 		}
-	%>
-	
-<h3 id="halloffameTab">Hall of Fame</h3>
-<hr id="halloffameLine">
-
-<table id="halloffame" border="1">
-
-			<tr>
-				<td align="center" width="100px">Ranking</td>
-				<td align="center" width="600px">Nickname</td>
-				<td align="center" width="200px">Rating</td>
-				<td align="center" width="400px">Tier</td>
-			</tr>
-
-<%
-	try {
-		sql = "select * from user_data order by rating desc limit 10";
-		rs = stmt.executeQuery(sql);
 	}
-	catch(Exception e) {
-		out.println("DB 연동 오류입니다. : " + e.getMessage());
-	}
-	int count = 0;
-	int rank = 1;
-	int previousRating = -1;
-	
-if(rs != null)
-{
-	while(rs.next())
-	{
-		count++;
-		int rating = Integer.parseInt(rs.getString("rating"));
-		
-		if(rating != previousRating)
-		{
-			rank = count;
-		}
-		
-		previousRating = Integer.parseInt(rs.getString("rating"));
-		
-%>
-			<tr>
-				<td align="center" width="100px"> <%= rank %> </td>
-				<td align="center" width="400px"> <%= rs.getString("nickname") %> </td>
-				<td align="center" width="200px"> <%= rs.getString("rating") %> </td>
-				<td align="center" width="600px">
-				
-				<%
-				String mainTier = null;
-				String detailTier = null;
-				
-				if(rating >= 3000)
-				{
-					mainTier = "The Verdict";
-				}
-				else if(rating >= 2500)
-				{
-					mainTier = "Master";
-				}
-				else if(rating >= 2000)
-				{
-					mainTier = "Diamond";
-				}
-				else if(rating >= 1500)
-				{
-					mainTier = "Platinum";
-				}
-				else if(rating >= 1000)
-				{
-					mainTier = "Gold";
-				}
-				else if(rating >= 500)
-				{
-					mainTier = "Sliver";
-				}
-				else
-				{
-					mainTier = "Bronze";
-				}
-				
-				if((rating % 500) / 100 == 4)
-				{
-					detailTier = "I";
-				}
-				else if((rating % 500) / 100 == 3)
-				{
-					detailTier = "II";
-				}
-				else if((rating % 500) / 100 == 2)
-				{
-					detailTier = "III";
-				}
-				else if((rating % 500) / 100 == 1)
-				{
-					detailTier = "IV";
-				}
-				else
-				{
-					detailTier = "V";
-				}
-				
-				
-				if(rating < 2500)
-				{
-					%>
-					<%= mainTier + " " + detailTier %>
-					<%
-				}
-				else
-				{
-					%>
-					<%= mainTier %>
-					<%
-				}
-				%>
-				</td>
-			</tr>
-<%		
-	}
-%>
-</table>
-<%
-	if(count == 0)
+	else
 	{
 		%>
-		<h3 class="noRanking">명예의 전당에 등록된 사용자가 없어요!</h3>
+		<h3 class="noReviews">해당 리뷰를 찾을 수 없습니다.</h3>
 		<%
 	}
-}
-else
-{
 	%>
-	<h3 class="noRanking">명예의 전당에 등록된 사용자가 없어요!</h3>
-	<%
-}
-%>
 </div>
+
+<div class="blank2"></div>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>

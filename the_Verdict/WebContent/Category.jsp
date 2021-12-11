@@ -282,7 +282,7 @@
 							else
 							{
 								%>
-								<img class="bestCategotyImage" src="<%= rs.getString("picture") %>">
+								<img class="bestCategoryImage" src="ReviewPhotoProcess.jsp?id=<%= rs2.getString("id") %>" onerror="this.src='Image/NoImage.png';">
 								<%
 							}
 						}
@@ -369,7 +369,7 @@
 							else
 							{
 								%>
-								<img class="bestCategotyImage" src="<%= rs.getString("picture") %>">
+								<img class="bestCategoryImage" src="ReviewPhotoProcess.jsp?id=<%= rs2.getString("id") %>" onerror="this.src='Image/NoImage.png';">
 								<%
 							}
 						}
@@ -456,7 +456,7 @@
 							else
 							{
 								%>
-								<img class="bestCategotyImage" src="<%= rs.getString("picture") %>">
+								<img class="bestCategoryImage" src="ReviewPhotoProcess.jsp?id=<%= rs2.getString("id") %>" onerror="this.src='Image/NoImage.png';">
 								<%
 							}
 						}
@@ -528,7 +528,7 @@
 				else
 				{
 				%>
-				<img class="bestReviewImage" src="<%= rs.getString("picture") %>">
+				<img class="bestReviewImage" src="ReviewPhotoProcess.jsp?id=<%= rs.getString("id") %>" onerror="this.src='Image/NoImage.png';">
 				<%
 				}
 				%>
@@ -560,11 +560,11 @@
 					String infoSplit[] = tag.split(";");
 				%>
 				
-				<div class="bestReviewInfo1"><% if(infoSplit.length >= 1) out.print("#" + infoSplit[0]); %></div>
+				<div class="bestReviewInfo1"><% if(infoSplit.length >= 2) out.print("#" + infoSplit[1]); %></div>
 				
-				<div class="bestReviewInfo2"><% if(infoSplit.length >= 2) out.print("#" + infoSplit[1]); %></div>
+				<div class="bestReviewInfo2"><% if(infoSplit.length >= 4) out.print("#" + infoSplit[3]); %></div>
 				
-				<div class="bestReviewInfo3"><% if(infoSplit.length >= 3) out.print("#" + infoSplit[2]); %></div>
+				<div class="bestReviewInfo3"><% if(infoSplit.length >= 6) out.print("#" + infoSplit[5]); %></div>
 				
 				<img class="bestReviewLikeImg" src="Image/like.png">
 				<h3 class="bestReviewLike"><% out.print(rs.getString("like_amount")); %></h3>
