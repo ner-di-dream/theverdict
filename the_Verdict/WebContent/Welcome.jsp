@@ -43,6 +43,17 @@
         $("#popupBackground").click(function() {
             $(".popup").fadeOut();
         });
+        
+        $("#searchIcon").click(function() {
+        	location.href = "Search.jsp?topic=" + $("#search").val();
+        });
+        
+        $("#search").keydown(function(key) {
+            if (key.keyCode == 13) {
+            	location.href = "Search.jsp?topic=" + $("#search").val();
+            }
+        });
+        
     });
 	</script>
 </div>

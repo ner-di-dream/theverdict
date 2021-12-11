@@ -40,6 +40,39 @@ a
 	cursor: pointer;
 }
 
+#search
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	font-weight: 400;
+	position: absolute;
+	top: 12px;
+	left: 400px;
+	width: 800px;
+	height: 50px;
+	background-color: transparent;
+	color: white;
+	border: none;
+	border-bottom: 2px solid white;
+}
+
+#search::placeholder
+{
+	color: white;
+	opacity: 1;
+}
+
+#searchIcon
+{
+	position: absolute;
+	top: 20px;
+	left: 330px;
+	width: 40px;
+	height: 40px;
+	-webkit-filter: invert(100%);
+	cursor: pointer;
+}
+
 #login
 {
 	font-family: 'Noto Sans KR', sans-serif;
