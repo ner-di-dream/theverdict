@@ -91,14 +91,23 @@ if(loginSession == null)
 %>
 
 
-		console.table(classify_data);
+		//console.table(classify_data);
 		//sql에 가져온 json 형식의 데이터를 분리해서 저장한다
 		for(var i = 0; i < classify_data.length ; i++){
 			main_data.push(classify_data[i][0]);
 			sub_data.push([classify_data[i][0], classify_data[i][1]]);
 		}
-		console.table(main_data);
-		console.table(sub_data);
+		
+		removeDup = new Set(main_data);
+		main_data = Array.from(removeDup);
+		removeDup = new Set(sub_data);
+		sub_data = Array.from(removeDup);
+		
+		
+		//console.table(main_data);
+		//console.table(sub_data);
+		
+		
 		
 		for(var i = 0; i < main_data.length ; i++){
 			if(main_data[i][0] == pre_main){
@@ -142,7 +151,7 @@ if(loginSession == null)
     	$("#subcategory").empty().append("<option value = '1'>소분류를 선택하세요</option>");
     	$("#product").empty().append("<option value = '1'>제품을 선택하세요</option>");
     	if($("#main_category option:selected").val() == '1'){
-    		console.log("1");
+    		//console.log("1");
     		return;
     	}
     	else if($("#main_category option:selected").val() == 'setMain'){
@@ -170,7 +179,7 @@ if(loginSession == null)
 		$("#newSub").hide();
     	$("#newProduct").hide();
 		if($("#subcategory option:selected").val() == '1'){
-			console.log('k');
+			//console.log('k');
     		return;
     	}
     	else if($("#subcategory option:selected").val() == 'setSub'){
@@ -430,7 +439,7 @@ if(loginSession == null)
 		<input type = "hidden" name = "information">
 	</div>
 </div>
-	<center><input type = "submit" value = "등록하기"> <input type = "reset" value = "초기화 하기"></center>
+	<center><input type = "submit" value = "등록하기"></center>
 </div>
 </form>
 
