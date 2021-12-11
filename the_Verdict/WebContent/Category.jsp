@@ -16,6 +16,10 @@
 <body>
 <div id="topBar">
 	<h1 id="title"><a href="Main.jsp">The Verdict</a></h1>
+	
+	<input id="search" type="text" placeholder="검색어를 입력하세요" autocomplete="off">
+	<img id="searchIcon" src="Image/searchIcon.png">
+	
 	<%
 		Connection conn = null;
 		Statement stmt = null;
@@ -596,6 +600,17 @@
         $("#title").click(function() {
             location.href = "Main.jsp";
         });
+        
+        $("#searchIcon").click(function() {
+        	location.href = "Search.jsp?topic=" + $("#search").val();
+        });
+        
+        $("#search").keydown(function(key) {
+            if (key.keyCode == 13) {
+            	location.href = "Search.jsp?topic=" + $("#search").val();
+            }
+        });
+        
         $("#notification").click(function() {
             location.href = "Notification.jsp";
         });

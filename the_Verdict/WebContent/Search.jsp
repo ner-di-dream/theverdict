@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" session="false" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="java.io.*" %>
+<%@ page import="java.util.*" %>
 <%@ page import="java.math.RoundingMode" %>
 <%@ page import="java.text.DecimalFormat" %>
 <% request.setCharacterEncoding("utf-8"); %>
@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="Main.css">
+<link rel="stylesheet" href="Search.css">
 <link href="https://fonts.googleapis.com/css2?family=Outfit&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&family=Outfit&display=swap" rel="stylesheet">
 <title>The Verdict</title>
@@ -136,234 +136,165 @@
 
 <div id="content">
 
-<h3 id="bestReviewTab">Best Review of the week</h3>
-<hr id="bestReviewLine">
-
-<%	
+<%
+	String pageString = request.getParameter("page");
+	int categoryPage = 1;
+	
+	if(pageString != null)
+	{
+		categoryPage = Integer.parseInt(pageString);
+	}
+	
+	int showType = -1;
+	int reviewCount = 0;
+	String topic = request.getParameter("topic");
+	
+	rs = null;
+	
+	if(topic == null || Objects.equals(topic, ""))
+	{
+		showType = 0;
+	}
+	else
+	{
+		showType = 1;
+	}
+	
+	if(showType == 0)
+	{
+		%>
+			<h3 class="categoryTab">모든 리뷰</h3>
+			<hr class="categoryLine">
+		<%
+	}
+	else if(showType == 1)
+	{
+		%>
+			<h3 class="categoryTab"><%= topic %> 검색 결과</h3>
+			<hr class="categoryLine">
+		<%
+	}
+	else
+	{
+		%>
+			<h1 id="error">해당 검색어에 맞는 리뷰를 찾을 수 없습니다.</h1>
+		<%
+	}
+	
+	if(showType == 0)
+	{
 		try {
-			sql = "select * from board_data where date between date_add(now(), interval -1 week) and now() order by (like_amount - dislike_amount) desc limit 3";
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(url, "admin", "0000");
+			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			sql = "select * from board_data order by (like_amount - dislike_amount) desc";
 			rs = stmt.executeQuery(sql);
 		}
 		catch(Exception e) {
 			out.println("DB 연동 오류입니다. : " + e.getMessage());
 		}
-			
-		if(rs != null)
-		{
-			int reviewCount = 0;
-			while(rs.next())
-			{
-				reviewCount++;
-%>
-			<div class="bestReview">
-				<h3 class="bestReviewCategory">
-				<% out.print(rs.getString("main_category")); %> > <% out.print(rs.getString("subcategory")); %> > <% out.print(rs.getString("product")); %>
-				</h3>
-				
-				<%
-				if(rs.getString("picture") == null)
-				{
-				%>
-				<img class="bestReviewImage" src="Image/NoImage.png">
-				<%
-				}
-				else
-				{
-				%>
-				<img class="bestReviewImage" src="ReviewPhotoProcess.jsp?id=<%= rs.getString("id") %>" onerror="this.src='Image/NoImage.png';">
-				<%
-				}
-				%>
-				
-				<h3 class="bestReviewTitle"><% out.print(rs.getString("title")); %></h3>
-				<h3 class="bestReviewContent"><% out.print(rs.getString("content")); %></h3>
-				
-				<%
-					float avgScore = Float.parseFloat(rs.getString("average_score"));
-					DecimalFormat df = new DecimalFormat("0.00");
-					df.setRoundingMode(RoundingMode.DOWN);
-				%>
-				
-				<h3 class="bestReviewAvgScore"><% out.print("Verdict Score : ★ " + df.format(avgScore)); %></h3>
-				
-				<%
-					String tag = rs.getString("tag");
-					String tagSplit[] = tag.split(";");
-				%>
-				
-				<div class="bestReviewTag1"><% if(tagSplit.length >= 1) out.print("#" + tagSplit[0]); %></div>
-				
-				<div class="bestReviewTag2"><% if(tagSplit.length >= 2) out.print("#" + tagSplit[1]); %></div>
-				
-				<div class="bestReviewTag3"><% if(tagSplit.length >= 3) out.print("#" + tagSplit[2]); %></div>
-				
-				<%
-					tag = rs.getString("information");
-					String infoSplit[] = tag.split(";");
-				%>
-				
-				<div class="bestReviewInfo1"><% if(infoSplit.length >= 1) out.print("#" + infoSplit[0]); %></div>
-				
-				<div class="bestReviewInfo2"><% if(infoSplit.length >= 2) out.print("#" + infoSplit[1]); %></div>
-				
-				<div class="bestReviewInfo3"><% if(infoSplit.length >= 3) out.print("#" + infoSplit[2]); %></div>
-				
-				<img class="bestReviewLikeImg" src="Image/like.png">
-				<h3 class="bestReviewLike"><% out.print(rs.getString("like_amount")); %></h3>
-				<img class="bestReviewDislikeImg" src="Image/dislike.png">
-				<h3 class="bestReviewDislike"><% out.print(rs.getString("dislike_amount")); %></h3>
-			</div>
-	<%
-			}
-			if(reviewCount == 0)
-			{
-				%>
-				<h3 class="noReviews">이번 주에 작성된 리뷰가 없어요!</h3>
-				<%
-			}
+	}
+	else if(showType == 1)
+	{
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(url, "admin", "0000");
+			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			sql = "select * from board_data where nickname like '%" + topic + "%' or main_category like '%" + topic + "%' or subcategory like '%" + topic + "%' or product like '%" + topic + "%' or title like '%" + topic + "%' or tag like '%" + topic + "%' or information like '%" + topic + "%' or evaluation like '%" + topic + "%' or content like '%" + topic + "%' order by (like_amount - dislike_amount) desc";
+			rs = stmt.executeQuery(sql);
 		}
-		else 
+		catch(Exception e) {
+			out.println("DB 연동 오류입니다. : " + e.getMessage());
+		}
+	}
+	
+	if(rs != null)
+	{
+		while(rs.next())
+		{
+			reviewCount++;
+			if(reviewCount > (categoryPage - 1) * 10 && reviewCount <= categoryPage * 10)
+			{
+%>
+		<div class="bestReview">
+			<h3 class="bestReviewCategory">
+			<% out.print(rs.getString("main_category")); %> > <% out.print(rs.getString("subcategory")); %> > <% out.print(rs.getString("product")); %>
+			</h3>
+			
+			<%
+			if(rs.getString("picture") == null)
+			{
+			%>
+			<img class="bestReviewImage" src="Image/NoImage.png">
+			<%
+			}
+			else
+			{
+			%>
+			<img class="bestReviewImage" src="<%= rs.getString("picture") %>">
+			<%
+			}
+			%>
+			
+			<h3 class="bestReviewTitle"><% out.print(rs.getString("title")); %></h3>
+			<h3 class="bestReviewContent"><% out.print(rs.getString("content")); %></h3>
+			
+			<%
+				float avgScore = Float.parseFloat(rs.getString("average_score"));
+				DecimalFormat df = new DecimalFormat("0.00");
+				df.setRoundingMode(RoundingMode.DOWN);
+			%>
+			
+			<h3 class="bestReviewAvgScore"><% out.print("Verdict Score : ★ " + df.format(avgScore)); %></h3>
+			
+			<%
+				String tag = rs.getString("tag");
+				String tagSplit[] = tag.split(";");
+			%>
+			
+			<div class="bestReviewTag1"><% if(tagSplit.length >= 1) out.print("#" + tagSplit[0]); %></div>
+			
+			<div class="bestReviewTag2"><% if(tagSplit.length >= 2) out.print("#" + tagSplit[1]); %></div>
+			
+			<div class="bestReviewTag3"><% if(tagSplit.length >= 3) out.print("#" + tagSplit[2]); %></div>
+			
+			<%
+				tag = rs.getString("information");
+				String infoSplit[] = tag.split(";");
+			%>
+			
+			<div class="bestReviewInfo1"><% if(infoSplit.length >= 1) out.print("#" + infoSplit[0]); %></div>
+			
+			<div class="bestReviewInfo2"><% if(infoSplit.length >= 2) out.print("#" + infoSplit[1]); %></div>
+			
+			<div class="bestReviewInfo3"><% if(infoSplit.length >= 3) out.print("#" + infoSplit[2]); %></div>
+			
+			<img class="bestReviewLikeImg" src="Image/like.png">
+			<h3 class="bestReviewLike"><% out.print(rs.getString("like_amount")); %></h3>
+			<img class="bestReviewDislikeImg" src="Image/dislike.png">
+			<h3 class="bestReviewDislike"><% out.print(rs.getString("dislike_amount")); %></h3>
+		</div>
+<%
+			}
+			
+		}
+		if(reviewCount == 0)
 		{
 			%>
-			<h3 class="noReviews">이번 주에 작성된 리뷰가 없어요!</h3>
-			<%	
+			<h3 class="noReviews">해당 검색어에 맞는 리뷰를 찾을 수 없습니다.</h3>
+			<%
 		}
-	%>
-	
-<h3 id="halloffameTab">Hall of Fame</h3>
-<hr id="halloffameLine">
-
-<table id="halloffame" border="1">
-
-			<tr>
-				<td align="center" width="100px">Ranking</td>
-				<td align="center" width="600px">Nickname</td>
-				<td align="center" width="200px">Rating</td>
-				<td align="center" width="400px">Tier</td>
-			</tr>
-
-<%
-	try {
-		sql = "select * from user_data order by rating desc limit 10";
-		rs = stmt.executeQuery(sql);
 	}
-	catch(Exception e) {
-		out.println("DB 연동 오류입니다. : " + e.getMessage());
-	}
-	int count = 0;
-	int rank = 1;
-	int previousRating = -1;
-	
-if(rs != null)
-{
-	while(rs.next())
-	{
-		count++;
-		int rating = Integer.parseInt(rs.getString("rating"));
-		
-		if(rating != previousRating)
-		{
-			rank = count;
-		}
-		
-		previousRating = Integer.parseInt(rs.getString("rating"));
-		
-%>
-			<tr>
-				<td align="center" width="100px"> <%= rank %> </td>
-				<td align="center" width="400px"> <%= rs.getString("nickname") %> </td>
-				<td align="center" width="200px"> <%= rs.getString("rating") %> </td>
-				<td align="center" width="600px">
-				
-				<%
-				String mainTier = null;
-				String detailTier = null;
-				
-				if(rating >= 3000)
-				{
-					mainTier = "The Verdict";
-				}
-				else if(rating >= 2500)
-				{
-					mainTier = "Master";
-				}
-				else if(rating >= 2000)
-				{
-					mainTier = "Diamond";
-				}
-				else if(rating >= 1500)
-				{
-					mainTier = "Platinum";
-				}
-				else if(rating >= 1000)
-				{
-					mainTier = "Gold";
-				}
-				else if(rating >= 500)
-				{
-					mainTier = "Sliver";
-				}
-				else
-				{
-					mainTier = "Bronze";
-				}
-				
-				if((rating % 500) / 100 == 4)
-				{
-					detailTier = "I";
-				}
-				else if((rating % 500) / 100 == 3)
-				{
-					detailTier = "II";
-				}
-				else if((rating % 500) / 100 == 2)
-				{
-					detailTier = "III";
-				}
-				else if((rating % 500) / 100 == 1)
-				{
-					detailTier = "IV";
-				}
-				else
-				{
-					detailTier = "V";
-				}
-				
-				
-				if(rating < 2500)
-				{
-					%>
-					<%= mainTier + " " + detailTier %>
-					<%
-				}
-				else
-				{
-					%>
-					<%= mainTier %>
-					<%
-				}
-				%>
-				</td>
-			</tr>
-<%		
-	}
-%>
-</table>
-<%
-	if(count == 0)
+	else 
 	{
 		%>
-		<h3 class="noRanking">명예의 전당에 등록된 사용자가 없어요!</h3>
-		<%
+		<h3 class="noReviews">해당 검색어에 맞는 리뷰를 찾을 수 없습니다.</h3>
+		<%	
 	}
-}
-else
-{
-	%>
-	<h3 class="noRanking">명예의 전당에 등록된 사용자가 없어요!</h3>
-	<%
-}
+	
 %>
+		<button id="previousPage">이전 페이지</button>
+		<button id="nextPage">다음 페이지</button>
 </div>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -427,6 +358,30 @@ else
         });
         $("#topMenu").mouseleave(function(){
             $("#topMenu").fadeTo(200, 0);
+        });
+        
+        $("#previousPage").click(function() {
+        	var page = <%= categoryPage %>
+        	if(page == 1)
+        	{
+        		alert("첫 페이지입니다!");
+        	}
+        	else
+        	{
+        		location.href = "Category.jsp?category=" + "<%= topic %>" + "&page=" + (page - 1);
+        	}
+        });
+        
+        $("#nextPage").click(function() {
+        	var page = <%= categoryPage %>
+        	if(page > (<%= reviewCount %> - 1 )/ 10)
+        	{
+        		alert("마지막 페이지입니다!");
+        	}
+        	else
+        	{
+        		location.href = "Category.jsp?category=" + "<%= topic %>" + "&page=" + (page * 1 + 1);
+        	}
         });
     });
 </script>

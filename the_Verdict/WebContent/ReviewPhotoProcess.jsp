@@ -16,19 +16,19 @@ Connection conn = null;
 byte[ ] imgData = null ;
 Statement stmt = null;
 ResultSet rs = null;
-String nickname = request.getParameter("nickname");
+String id = request.getParameter("id");
 
 try {
 Class.forName("com.mysql.jdbc.Driver");
 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/the_verdict_db", "admin", "0000");
 stmt = conn.createStatement();
-rs = stmt.executeQuery("select * from user_data where nickname = '" + nickname + "'");
+rs = stmt.executeQuery("select * from board_data where id = '" + id + "'");
 
 out.clear();
 out = pageContext.pushBody();
 
 if (rs.next()) {
-	image = rs.getBlob("profile_picture");
+	image = rs.getBlob("picture");
 	imgData = image.getBytes(1,(int)image.length());
 }
 else {
@@ -37,6 +37,7 @@ else {
 return;
 }
 // display the image
+response.reset();
 response.setContentType("image/gif");
 OutputStream o = response.getOutputStream();
 o.write(imgData);

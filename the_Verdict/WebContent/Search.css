@@ -94,6 +94,7 @@ a
 	width: 60px;
 	height: 60px;
 	margin: 0px;
+	border-radius: 30px;
 }
 
 .topTier
@@ -152,7 +153,7 @@ a
   	position: absolute;
   	top: 0px;
   	right: 75px;
-	border-radius: 30px;
+  	cursor: pointer;
 }
 
 #myReview
@@ -176,7 +177,6 @@ a
   	right: 75px;
   	cursor: pointer;
 }
-
 
 #notification
 {
@@ -272,48 +272,300 @@ a
 	height: auto;
 }
 
-.blank
+#error
 {
-	width: 1600px;
-	height: 50px;
+	position: relative;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 36px;
+	font-weight: 900;
+	text-align: center;
 }
 
-#halloffameTab
+.noReviews
 {
-	font-family: 'Outfit', sans-serif;
+	position: relative;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 36px;
+	font-weight: 900;
+	text-align: center;
+}
+
+#leftTab
+{
+	margin-left: 60px;
+}
+
+.categoryTab
+{
+	font-family: 'Noto Sans KR', sans-serif;
   	font-size: 24px;
 	font-weight: 400;
 	margin: 0px;
 	margin-left: 60px;
 }
 
-#halloffameLine
+.categoryLine
 {
 	left: 50px;
 	width: 1800px;
+	margin-top: 10px;
 	margin-bottom: 50px;
 }
 
-#halloffame
+.bestReview
 {
+	position: relative;
+	left: 50px;
+	bottom: 0px;
+	width: 1770px;
+	height: 240px;
+	margin: 0px;
+	margin-bottom: 50px;
+	border: 2px solid black;
+}
+
+.bestReviewImage
+{
+	position: relative;
+	top: 20px;
+	left: 30px;
+	width: 360px;
+	height: 180px;
+	margin: 0px;
+}
+
+.bestReviewCategory
+{
+	position: relative;
+	top: 10px;
+	left: 50px;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 18px;
+	font-weight: 900;
+	width: 1200px;
+	margin: 0px;
+	white-space: normal;
+ 	text-overflow: ellipsis;
+ 	overflow: hidden;
+}
+
+.bestReviewTitle
+{
+	position: relative;
+	top: -175px;
+	left: 420px;
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 32px;
+	font-weight: 900;
+	width: 800px;
+	margin: 0px;
+}
+
+.bestReviewContent
+{
+	position: relative;
+	top: -160px;
+	left: 420px;
 	font-family: 'Noto Sans KR', sans-serif;
   	font-size: 24px;
 	font-weight: 400;
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	width: auto;
+	width: 800px;
+	height: 104px;
+	margin: 0px;
+	
+	white-space: normal;
+ 	text-overflow: ellipsis;
+ 	overflow: hidden;
+  	display: -webkit-box;
+  	-webkit-box-orient: vertical;
+  	-webkit-line-clamp: 3;
+  	word-wrap: break-word; 
 }
 
-#noRanking
+.bestReviewAvgScore
+{
+	font-family: 'Outfit', sans-serif;
+  	font-size: 32px;
+	font-weight: 900;
+  	position: relative;
+  	top: -340px;
+  	left: 1320px;
+  	width: 400px;
+  	text-align: center;
+	color: black;
+	margin: 0px;
+}
+
+.bestReviewTag1
 {
 	font-family: 'Noto Sans KR', sans-serif;
-  	font-size: 36px;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: relative;
+  	top: -310px;
+  	left: 1300px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #1abc9c;
+	color: white;
+	padding: 2px;
+	width: 120px;
+	height: 20px;
+	margin: 0px;
+	white-space: normal;
+ 	text-overflow: ellipsis;
+ 	overflow: hidden;
+}
+
+.bestReviewTag2
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: relative;
+  	top: -334px;
+  	left: 1450px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #1abc9c;
+	color: white;
+	padding: 2px;
+	width: 120px;
+	height: 20px;
+	margin: 0px;
+	white-space: normal;
+ 	text-overflow: ellipsis;
+ 	overflow: hidden;
+}
+
+.bestReviewTag3
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: relative;
+  	top: -358px;
+  	left: 1600px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #1abc9c;
+	color: white;
+	padding: 2px;
+	width: 120px;
+	height: 20px;
+	margin: 0px;
+	white-space: normal;
+ 	text-overflow: ellipsis;
+ 	overflow: hidden;
+}
+
+.bestReviewInfo1
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: relative;
+  	top: -340px;
+  	left: 1300px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #f39d12;
+	color: white;
+	padding: 2px;
+	width: 120px;
+	height: 20px;
+	margin: 0px;
+	white-space: normal;
+ 	text-overflow: ellipsis;
+ 	overflow: hidden;
+}
+
+.bestReviewInfo2
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: relative;
+  	top: -364px;
+  	left: 1450px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #f39d12;
+	color: white;
+	padding: 2px;
+	width: 120px;
+	height: 20px;
+	margin: 0px;
+	white-space: normal;
+ 	text-overflow: ellipsis;
+ 	overflow: hidden;
+}
+
+.bestReviewInfo3
+{
+	font-family: 'Noto Sans KR', sans-serif;
+  	font-size: 12px;
+	font-weight: 400;
+  	position: relative;
+  	top: -388px;
+  	left: 1600px;
+  	text-align: center;
+	border-radius: 15px;
+	background: #f39d12;
+	color: white;
+	padding: 2px;
+	width: 120px;
+	height: 20px;
+	margin: 0px;
+	white-space: normal;
+ 	text-overflow: ellipsis;
+ 	overflow: hidden;
+}
+
+.bestReviewLikeImg
+{
+	position: relative;
+	top: -370px;
+	left: 1350px;
+	width: 40px;
+	height: 40px;
+}
+
+.bestReviewLike
+{
+	font-family: 'Outfit', sans-serif;
+  	font-size: 24px;
 	font-weight: 900;
-	position: absolute;
-	top: 200px;
-	left: 50%;
-	transform: translate(-50%, 0);
+  	position: relative;
+  	top: -407px;
+  	left: 1400px;
+  	text-align: center;
+	color: black;
+	width: 100px;
+	margin: 0px;
+}
+
+.bestReviewDislikeImg
+{
+	position: relative;
+	top: -444px;
+	left: 1550px;
+	width: 40px;
+	height: 40px;
+}
+
+.bestReviewDislike
+{
+	font-family: 'Outfit', sans-serif;
+  	font-size: 24px;
+	font-weight: 900;
+  	position: relative;
+  	top: -481px;
+  	left: 1600px;
+  	text-align: center;
+	color: black;
+	width: 100px;
+	margin: 0px;
 }
 
 #previousPage
