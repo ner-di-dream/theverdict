@@ -179,7 +179,11 @@
 				<h3 class="bestReviewContent"><% out.print(rs.getString("content")); %></h3>
 				
 				<%
-					float avgScore = Float.parseFloat(rs.getString("average_score"));
+					float avgScore = 0;
+					if(rs.getString("average_score") != null)
+					{
+				    	avgScore = Float.parseFloat(rs.getString("average_score"));
+					}
 					DecimalFormat df = new DecimalFormat("0.00");
 					df.setRoundingMode(RoundingMode.DOWN);
 				%>
@@ -188,7 +192,12 @@
 				
 				<%
 					String tag = rs.getString("tag");
-					String tagSplit[] = tag.split(";");
+					String tagSplit[] = {};
+					if(tag != null)
+					{
+						tagSplit = tag.split(";");
+					}
+					
 				%>
 				
 				<div class="bestReviewTag1"><% if(tagSplit.length >= 1) out.print("#" + tagSplit[0]); %></div>
@@ -199,7 +208,11 @@
 				
 				<%
 					tag = rs.getString("information");
-					String infoSplit[] = tag.split(";");
+					String infoSplit[] = {};
+					if(tag != null)
+					{
+						infoSplit = tag.split(";");
+					}
 				%>
 				
 				<div class="bestReviewInfo1"><% if(infoSplit.length >= 2) out.print("#" + infoSplit[1]); %></div>

@@ -142,7 +142,19 @@ if(loginSession == null)
             location.href = "Write_content.jsp";
         });
         
-        
+
+    	document.getElementById("image").onchange = function () {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                // get loaded data and render thumbnail.
+                document.getElementById("imagePreview").src = e.target.result;
+            };
+
+            // read the image file as a data URL.
+            reader.readAsDataURL(this.files[0]);
+            $("#submit").attr("disabled", false);
+        };
     });
     function getSubCategory(){
     	$("#newMain").hide();
@@ -240,7 +252,7 @@ if(loginSession == null)
 		else{
 			infoListProperty.push(value1);
 			infoListValue.push(value2);
-			$("#showInfolist").append("<div onclick = 'deleteInfo(this)'><span class = 'infoDesign'>" + value1 + "</span><span class = 'infoDesign2'>" + value2 + "</span></div>");
+			$("#showInfolist").append("<div onclick = 'deleteInfo(this)'><span class = 'info1Design'>" + value1 + "</span><span class = 'info2Design'>" + value2 + "</span></div>");
 		}
 		$("input[name = inputInfo1]").val('');
 		$("input[name = inputInfo2]").val('');
@@ -284,11 +296,11 @@ if(loginSession == null)
 			return false;
 		}
 		if(parseInt($("input[name = average_score]").val()) > 10){
-			alert("별점은 10이하여야 합니다.");
+			alert("별점은 10 이하 이어야 합니다.");
 			return false;
 		}
 		if(parseInt($("input[name = average_score]").val()) < 0){
-			alert("별점은 양수여야 합니다.");
+			alert("별점은 0 이상 이어야 합니다.");
 			return false;
 		}
 		if($("textarea[name = content]").val() == null){
@@ -304,17 +316,18 @@ if(loginSession == null)
 			console.log(taglist[i]);
 			value = value + (taglist[i] + ";");
 		}
-		$("input[name = tag]").val(value);
+		$("#currentTag").val(value);
 		
 		var valueInfo = "";
 		for(var i = 0; i < infoListValue.length; i++){
 			console.log(infoListProperty[i] + " " + infoListValue[i]);
 			valueInfo = valueInfo + (infoListProperty[i] + ";" + infoListValue[i] + ";");
 		}
-		$("input[name = information]").val(valueInfo);
+		$("#currentInformation").val(valueInfo);
 		
 		return true;
 	}
+	
 </script>
 </head>
 <body>
@@ -369,80 +382,55 @@ if(loginSession == null)
 <div id="classifyArea">
 	
 </div>
-<form method = "post" action = "Write_content_db.jsp" onSubmit="return checkForm()" >
+<form method="post" action="write_review_change" onSubmit="return checkForm()" enctype="multipart/form-data">
 <div id = "content">
-<div id = "fromArea">
-	<table border = "0">
-		<tr>
-			<td>메인 카테고리:</td>
-			<td>
+				<h1 class = "categoryText" id = "main_categoryText">대분류</h1>
 				<select name = "main_category" id = "main_category" onChange = "getSubCategory()">
 				</select>
-			</td>
-			<td>
-				<input name = "new_main_category" id = "newMain" type = "text" style = "display:none" >
-			</td>
-		</tr>
-		<tr>
-			<td>하위 카테고리:</td>
-			<td>
+				
+				<input name = "new_main_category" id = "newMain" type = "text" placeholder = "대분류 직접 입력" style = "display: none" >
+				
+				<h1 class = "categoryText" id = "subcategoryText">소분류</h1>
 				<select name = "subcategory" id = "subcategory" onChange = "getProduct()">
 				</select>
-			</td>
-			<td>
-				<input name = "new_sub_category" id = "newSub" type = "text" style = "display:none" >
-			</td>
-		</tr>
-		<tr>
-			<td>상품명:</td>
-			<td>
+				
+				<input name = "new_sub_category" id = "newSub" type = "text" placeholder = "소분류 직접 입력" style = "display: none" >
+				
+				<h1 class = "categoryText" id = "productText">제품</h1>
 				<select name = "product" id = "product" onChange = "productCheck()">
 				</select>
-			</td>
-			<td>
-				<input name = "new_product" id = "newProduct" type = "text" style = "display:none" >
-			</td>
-		</tr>
-		<tr>
-			<td>제목:</td>
-			<td>
-				<input type = "text" name = "title">
-			</td>
-		</tr>
+				
+				<input name = "new_product" id = "newProduct" type = "text" placeholder = "제품 직접 입력" style = "display: none" >
+				
+				<h1 class = "categoryText" id = "titleText">제목</h1>
+				<input type = "text" name = "title" id = "title2" placeholder = "제목 입력">
+				
+				<h1 class = "categoryText" id = "scoreText">Verdict Score</h1>
+				<input type = "number" name = "average_score" id = "avgScore" placeholder = "Verdict Score (10점 만점)">
+		<br>
 		
-		<tr>
-			<td>총점 입력:</td>
-			<td>
-				<input type = "text" name = "average_score">/10
-			</td>
-		</tr>
-		
-	</table>
-		내용:<br>
-		<hr>
-		<textarea name = "content" rows = "40" cols = "150"></textarea><br>
-</div>
-<div id = "tagArea">
-	<div>
-	태그 추가(상품에 대한 간단한 정보):
-		<div id = "showTaglist"></div>
-		<input type = "text" name = "inputTag">
-		<div onclick = "addTag()">입력하기</div>
-		<input type = "hidden" name = "tag">
-	</div>
-	<hr>
-	<div>
-	정보 추가:
-		<div id = "showInfolist"></div>
-		<input type = "text" name = "inputInfo1"> <input type = "text" name = "inputInfo2">
-		<div onclick = "addInfo()">입력하기</div>
-		<input type = "hidden" name = "information">
-	</div>
-</div>
-	<center><input type = "submit" value = "등록하기"></center>
-</div>
-</form>
+		<input type="file" id="image" name="image" accept="image/*">
+		<img id="imagePreview" src="Image/mainImage.png">
 
+		<textarea name = "content" id = "reviewContent" rows = "40" cols = "150"></textarea><br>
+		
+		<h3 id = "tagDeleteNotice">추가된 태그와 정보를 클릭하면 삭제할 수 있습니다.</h3>
+		
+		<div id = "showTaglist"></div>
+		<input type = "text" name = "inputTag" id = "inputTag" placeholder = "추가할 태그 입력">
+		<div onclick = "addTag()" id = "addTag">입력하기</div>
+		<input type = "hidden" name="tag" id = "currentTag">
+		
+	<div>
+		<input type = "text" name = "inputInfo1" id = "inputInfo1" placeholder = "정보 종류 입력 (예시 : 화면 크기)"> <input type = "text" name = "inputInfo2" id = "inputInfo2" placeholder = "대응하는 정보 입력 (예시 : 6인치)">
+		<div onclick = "addInfo()" id = "addInfo">입력하기</div>
+		<input type = "hidden" name="information" id = "currentInformation">
+		<div id = "showInfolist"></div>
+	</div>
+</div>
+	<input type = "submit" value = "등록하기" id = "submit">
+</form>
+<div id = "blank"></div>
 </body>
 
 </html>
