@@ -13,6 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+
+
+
 
 /**
  * Servlet implementation class write_review_change
@@ -32,6 +38,7 @@ public class write_review_change extends HttpServlet {
     	
     	HttpSession loginSession = request.getSession(false);
 		String nickname = null;
+		
 		
 		if(loginSession == null)
 		{
@@ -66,6 +73,9 @@ public class write_review_change extends HttpServlet {
         String sql = null;
         ResultSet rs = null;
         int new_id = 0;
+        
+        
+        //MultipartRequest multipartRequest = new MultipartRequest(request, uploadDir, maxSize, encoding, new DefaultFileRenamePolicy());
         
         try {
     		Class.forName("com.mysql.jdbc.Driver");
@@ -168,7 +178,7 @@ public class write_review_change extends HttpServlet {
             statement.setString(9, request.getParameter("tag"));
             statement.setString(10, request.getParameter("information"));
             statement.setString(11, request.getParameter("content"));
-            statement.setString(12, request.getParameter("information"));
+            statement.setString(12, request.getParameter("average_score"));
             
             java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
 
