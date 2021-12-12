@@ -213,6 +213,319 @@ public class write_review_change extends HttpServlet {
             message = "ERROR: " + ex.getMessage();
             ex.printStackTrace();
         } finally {
+        	
+        	String str;
+        	String str2;
+        	String str3;
+        	
+        	str = new String(request.getParameter("new_main_category").getBytes("8859_1"),"utf-8");
+        	if(!Objects.equals(str, ""))
+        	{
+        		int max_id = 0;
+        		try {
+    				sql = "select max(id) as max_id from category_data";
+    				rs = stmt.executeQuery(sql);
+    			}
+    			catch(Exception e) {
+    				System.out.println("DB 연동 오류입니다. : " + e.getMessage());
+    			}
+    		
+    			if(rs != null)
+    			{
+    				try {
+						while(rs.next())
+						{
+							try {
+								max_id = Integer.parseInt(rs.getString("max_id"));
+							} catch (NumberFormatException | SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    			}
+    			max_id++;
+    			
+    			try {
+    				DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+    	            conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
+    				sql = "insert into category_data values (" + max_id + ", '" + str + "', 1, null, null, 1, null)";
+    				statement.executeUpdate(sql);
+    			}
+    			catch(Exception e) {
+    				System.out.println("DB 연동 오류입니다. : " + e.getMessage());
+    			}
+        	}
+        	else 
+        	{
+        		int count = 0;
+        		float totalScore = 0;
+        		
+        		str = new String(request.getParameter("main_category").getBytes("8859_1"),"utf-8");
+        		try {
+    				sql = "select * from board_data where main_category = '" + str + "'";
+    				rs = stmt.executeQuery(sql);
+    			}
+    			catch(Exception e) {
+    				System.out.println("DB 연동 오류입니다. : " + e.getMessage());
+    			}
+    		
+    			if(rs != null)
+    			{
+    				try {
+						while(rs.next())
+						{
+							try {
+								count++;
+								totalScore += Float.parseFloat(rs.getString("average_score"));
+							} catch (NumberFormatException | SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    			}
+    			
+    			float avgScore = totalScore / count;
+    			
+    			try {
+    				DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+    	            conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
+    				sql = "update category_data set review_amount = " + count + ", score = " + avgScore + " where name = '" + str + "'";
+    				statement.executeUpdate(sql);
+    			}
+    			catch(Exception e) {
+    				System.out.println("DB 연동 오류입니다. : " + e.getMessage());
+    			}
+			}
+        	
+        	str = new String(request.getParameter("new_sub_category").getBytes("8859_1"),"utf-8");
+        	if(!Objects.equals(str, ""))
+        	{
+        		int max_id = 0;
+        		try {
+    				sql = "select max(id) as max_id from category_data";
+    				rs = stmt.executeQuery(sql);
+    			}
+    			catch(Exception e) {
+    				System.out.println("DB 연동 오류입니다. : " + e.getMessage());
+    			}
+    		
+    			if(rs != null)
+    			{
+    				try {
+						while(rs.next())
+						{
+							try {
+								max_id = Integer.parseInt(rs.getString("max_id"));
+							} catch (NumberFormatException | SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    			}
+    			max_id++;
+    			
+    			try {
+    				DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+    	            conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
+    	            str2 = new String(request.getParameter("new_main_category").getBytes("8859_1"),"utf-8");
+    	            if(Objects.equals(str2, ""))
+    	            {
+    	            	str2 = new String(request.getParameter("main_category").getBytes("8859_1"),"utf-8");
+    	            }
+    				sql = "insert into category_data values (" + max_id + ", '" + str + "', 2, '" + str2 + "', null, 1, null)";
+    				statement.executeUpdate(sql);
+    			}
+    			catch(Exception e) {
+    				System.out.println("DB 연동 오류입니다. : " + e.getMessage());
+    			}
+        	}
+        	else 
+        	{
+        		int count = 0;
+        		float totalScore = 0;
+        		
+        		str = new String(request.getParameter("subcategory").getBytes("8859_1"),"utf-8");
+        		try {
+    				sql = "select * from board_data where subcategory = '" + str + "'";
+    				rs = stmt.executeQuery(sql);
+    			}
+    			catch(Exception e) {
+    				System.out.println("DB 연동 오류입니다. : " + e.getMessage());
+    			}
+    		
+    			if(rs != null)
+    			{
+    				try {
+						while(rs.next())
+						{
+							try {
+								count++;
+								totalScore += Float.parseFloat(rs.getString("average_score"));
+							} catch (NumberFormatException | SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    			}
+    			
+    			float avgScore = totalScore / count;
+    			
+    			try {
+    				DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+    	            conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
+    				sql = "update category_data set review_amount = " + count + ", score = " + avgScore + " where name = '" + str + "'";
+    				statement.executeUpdate(sql);
+    			}
+    			catch(Exception e) {
+    				System.out.println("DB 연동 오류입니다. : " + e.getMessage());
+    			}
+			}
+        	
+        	str = new String(request.getParameter("new_product").getBytes("8859_1"),"utf-8");
+        	if(!Objects.equals(str, ""))
+        	{
+        		int max_id = 0;
+        		try {
+    				sql = "select max(id) as max_id from category_data";
+    				rs = stmt.executeQuery(sql);
+    			}
+    			catch(Exception e) {
+    				System.out.println("DB 연동 오류입니다. : " + e.getMessage());
+    			}
+    		
+    			if(rs != null)
+    			{
+    				try {
+						while(rs.next())
+						{
+							try {
+								max_id = Integer.parseInt(rs.getString("max_id"));
+							} catch (NumberFormatException | SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    			}
+    			max_id++;
+    			
+    			try {
+    				DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+    	            conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
+    	            str2 = new String(request.getParameter("new_main_category").getBytes("8859_1"),"utf-8");
+    	            if(Objects.equals(str2, ""))
+    	            {
+    	            	str2 = new String(request.getParameter("main_category").getBytes("8859_1"),"utf-8");
+    	            }
+    	            str3 = new String(request.getParameter("new_sub_category").getBytes("8859_1"),"utf-8");
+    	            if(Objects.equals(str3, ""))
+    	            {
+    	            	str3 = new String(request.getParameter("subcategory").getBytes("8859_1"),"utf-8");
+    	            }
+    				sql = "insert into category_data values (" + max_id + ", '" + str + "', 3, '" + str2 + "', '" + str3 + "', 1, " + request.getParameter("average_score") + ")";
+    				statement.executeUpdate(sql);
+    			}
+    			catch(Exception e) {
+    				System.out.println("DB 연동 오류입니다. : " + e.getMessage());
+    			}
+        	}
+        	else 
+        	{
+        		int count = 0;
+        		float totalScore = 0;
+        		
+        		str = new String(request.getParameter("product").getBytes("8859_1"),"utf-8");
+        		try {
+    				sql = "select * from board_data where product = '" + str + "'";
+    				rs = stmt.executeQuery(sql);
+    			}
+    			catch(Exception e) {
+    				System.out.println("DB 연동 오류입니다. : " + e.getMessage());
+    			}
+    		
+    			if(rs != null)
+    			{
+    				try {
+						while(rs.next())
+						{
+							try {
+								count++;
+								totalScore += Float.parseFloat(rs.getString("average_score"));
+							} catch (NumberFormatException | SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    			}
+    			
+    			float avgScore = totalScore / count;
+    			
+    			try {
+    				DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+    	            conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
+    				sql = "update category_data set review_amount = " + count + ", score = " + avgScore + " where name = '" + str + "'";
+    				statement.executeUpdate(sql);
+    			}
+    			catch(Exception e) {
+    				System.out.println("DB 연동 오류입니다. : " + e.getMessage());
+    			}
+			}
+        	
+    		try {
+				sql = "select * from user_data where nickname = '" + nickname + "'";
+				rs = stmt.executeQuery(sql);
+			}
+			catch(Exception e) {
+				System.out.println("DB 연동 오류입니다. : " + e.getMessage());
+			}
+    		
+    		int review_count = 0;
+		
+			if(rs != null)
+			{
+				try {
+					while(rs.next())
+					{
+						review_count = Integer.parseInt(rs.getString("review_amount"));
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			review_count++;
+			try {
+				sql = "update user_data set review_amount = " + review_count + " where nickname = '" + nickname + "'";
+				stmt.executeUpdate(sql);
+			}
+			catch(Exception e) {
+				System.out.println("DB 연동 오류입니다. : " + e.getMessage());
+			}
+        	
             if (conn != null) {
                 // closes the database connection
                 try {
