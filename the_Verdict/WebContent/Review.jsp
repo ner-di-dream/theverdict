@@ -4,7 +4,12 @@
 <%@ page import="java.io.*" %>
 <%@ page import="java.math.RoundingMode" %>
 <%@ page import="java.text.DecimalFormat" %>
+<%@ page  import = "javax.servlet.http.HttpSession" %>
 <% request.setCharacterEncoding("utf-8"); %>
+<%
+	boolean activation = false, showButton = false;
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,6 +50,7 @@
 		}
 		else
 		{
+			activation = true;
 			String nickname = (String)loginSession.getAttribute("nickname");
 			
 			if(nickname != null)
@@ -156,6 +162,7 @@
 			while(rs.next())
 			{
 				reviewCount++;
+				if((String)loginSession.getAttribute("ID") == rs.getString("nickname"))	showButton = true;
 %>
 		<div class="div1">
 			<h3 class="categoryTab" id="leftTab" onClick="location.href='Category.jsp'">분류</h3>
@@ -394,6 +401,15 @@
 
 <div class="blank2"></div>
 
+<%
+	if(showButton == true){
+		%>
+		<a href = "delete-review.jsp?id=<%=idString%>">삭제하기</a>
+		
+		<%
+	}
+%>
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -460,6 +476,10 @@
     function checkForm(){
     	//로그인 안하면 댓글 등록 안되게 코딩
     	//if login and comment are not null, then return true
+    	if(activation)	return true;
+    	
+    	alert("로그인이 필요합니다.");
+    	return false;
     	//else return false
     }
 </script>
