@@ -18,7 +18,8 @@
 		String score = request.getParameter("score");
 		String review_id = request.getParameter("review_id");
 		String comment = request.getParameter("comment");
-		String nickname = (String)session.getAttribute("nickname");
+		String nickname = (String)session.getAttribute("ID");
+		
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
