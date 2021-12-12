@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Date;
+import java.util.Objects;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,8 @@ import javax.servlet.http.Part;
  * Servlet implementation class write_review_change
  */
 @WebServlet("/write_review_change")
+@MultipartConfig(maxFileSize = 16777215)
+
 public class write_review_change extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -29,6 +33,9 @@ public class write_review_change extends HttpServlet {
      
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
+    	
+    	response.setContentType("text/html;charset=UTF-8");  
+    	response.setCharacterEncoding("UTF-8"); 
     	
     	HttpSession loginSession = request.getSession(false);
 		String nickname = null;
@@ -49,7 +56,7 @@ public class write_review_change extends HttpServlet {
         InputStream inputStream = null; // input stream of the upload file
          
         // obtains the upload file part in this multipart request
-        Part filePart = null; //request.getPart("image");
+        Part filePart = request.getPart("image");
         if (filePart != null) {
             // prints out some information for debugging
             System.out.println(filePart.getName());
@@ -133,42 +140,65 @@ public class write_review_change extends HttpServlet {
             
             statement.setBlob(8, inputStream);
             
+            String str;
+            
             statement.setInt(1, new_id);
             statement.setInt(2, user_number);
+            
             statement.setString(3, nickname);
             
-            if(request.getParameter("new_main_category") != null)
+            str = new String(request.getParameter("new_main_category").getBytes("8859_1"),"utf-8");
+            
+            if(!Objects.equals(str, ""))
             {
-            	statement.setString(4, request.getParameter("new_main_category"));
+            	str = new String(request.getParameter("new_main_category").getBytes("8859_1"),"utf-8");
+            	statement.setString(4, str);
             }
             else
             {
-				statement.setString(4, request.getParameter("main_category"));
+            	str = new String(request.getParameter("main_category").getBytes("8859_1"),"utf-8");
+            	statement.setString(4, str);
 			}
             
-            if(request.getParameter("new_sub_category") != null)
+            str = new String(request.getParameter("new_sub_category").getBytes("8859_1"),"utf-8");
+            
+            if(!Objects.equals(str, ""))
             {
-            	statement.setString(5, request.getParameter("new_sub_category"));
+            	str = new String(request.getParameter("new_sub_category").getBytes("8859_1"),"utf-8");
+            	statement.setString(5, str);
             }
             else
             {
-				statement.setString(5, request.getParameter("subcategory"));
+            	str = new String(request.getParameter("subcategory").getBytes("8859_1"),"utf-8");
+            	statement.setString(5, str);
 			}
             
-            if(request.getParameter("new_product") != null)
+            str = new String(request.getParameter("new_product").getBytes("8859_1"),"utf-8");
+            
+            if(!Objects.equals(str, ""))
             {
-            	statement.setString(6, request.getParameter("new_product"));
+            	str = new String(request.getParameter("new_product").getBytes("8859_1"),"utf-8");
+            	statement.setString(6, str);
             }
             else
             {
-				statement.setString(6, request.getParameter("product"));
+            	str = new String(request.getParameter("product").getBytes("8859_1"),"utf-8");
+            	statement.setString(6, str);
 			}
             
-            statement.setString(7, request.getParameter("title"));
-            statement.setString(9, request.getParameter("tag"));
-            statement.setString(10, request.getParameter("information"));
-            statement.setString(11, request.getParameter("content"));
-            statement.setString(12, request.getParameter("information"));
+            str = new String(request.getParameter("title").getBytes("8859_1"),"utf-8");
+        	statement.setString(7, str);
+        	
+        	str = new String(request.getParameter("tag").getBytes("8859_1"),"utf-8");
+        	statement.setString(9, str);
+        	
+        	str = new String(request.getParameter("information").getBytes("8859_1"),"utf-8");
+        	statement.setString(10, str);
+        	
+        	str = new String(request.getParameter("content").getBytes("8859_1"),"utf-8");
+        	statement.setString(11, str);
+        	
+            statement.setString(12, request.getParameter("average_score"));
             
             java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
 

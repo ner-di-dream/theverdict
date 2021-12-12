@@ -382,7 +382,7 @@ if(loginSession == null)
 <div id="classifyArea">
 	
 </div>
-<form method="post" action="write_review_change" onSubmit="return checkForm()" enctype="multipart/form-data">
+<form method="post" action="write_review_change" onSubmit="return checkForm()" enctype="multipart/form-data" accept-charset="UTF-8">
 <div id = "content">
 				<h1 class = "categoryText" id = "main_categoryText">대분류</h1>
 				<select name = "main_category" id = "main_category" onChange = "getSubCategory()">
@@ -406,7 +406,7 @@ if(loginSession == null)
 				<input type = "text" name = "title" id = "title2" placeholder = "제목 입력">
 				
 				<h1 class = "categoryText" id = "scoreText">Verdict Score</h1>
-				<input type = "number" name = "average_score" id = "avgScore" placeholder = "Verdict Score (10점 만점)">
+				<input type = "number" step="0.01" name = "average_score" id = "avgScore" placeholder = "Verdict Score (10점 만점)">
 		<br>
 		
 		<input type="file" id="image" name="image" accept="image/*">

@@ -239,16 +239,23 @@
 				
 				<% 
 					String content = rs.getString("content");
+				if(content != null)
+				{
 					content = content.replace("\n", "<br>");
 					content = content.replace(" ", "&nbsp;");
 					out.print(content);
+				}
 				%>
 				</h3>
 				</div>
 			</div>
 			<div class="div5">
 				<%
-					float avgScore = Float.parseFloat(rs.getString("average_score"));
+					float avgScore = 0;
+					if(rs.getString("average_score") != null)
+					{
+			    		avgScore = Float.parseFloat(rs.getString("average_score"));
+					}
 					DecimalFormat df = new DecimalFormat("0.00");
 					df.setRoundingMode(RoundingMode.DOWN);
 				%>
@@ -256,8 +263,12 @@
 				<div class="bestReviewAvgScore"><h3><% out.print("Verdict Score : ★ " + df.format(avgScore)); %></h3></div>
 				<div class="div7">
 				<%
-					String tag = rs.getString("tag");
-					String tagSplit[] = tag.split(";");
+				String tag = rs.getString("tag");
+				String tagSplit[] = {};
+				if(tag != null)
+				{
+					tagSplit = tag.split(";");
+				}
 					
 					for(int i = 0; i < tagSplit.length; i++)
 					{
@@ -272,7 +283,11 @@
 					<div class="div8">
 					<%
 					tag = rs.getString("information");
-					String infoSplit[] = tag.split(";");
+					String infoSplit[] = {};
+					if(tag != null)
+					{
+						infoSplit = tag.split(";");
+					}
 					
 					for(int i = 0; i < infoSplit.length; i += 2)
 					{
