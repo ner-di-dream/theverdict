@@ -325,6 +325,7 @@
 	<div id = "showComment">
 	<%
 	ResultSet rs3 = null;
+    ResultSet rs4 = null;
 	try {
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection(url, "admin", "0000");
@@ -332,11 +333,42 @@
 		sql = "select * from comment_data where review_id = " + idString + "";
 		rs3 = stmt.executeQuery(sql);
 		while(rs3.next()){
+			int recommend = Integer.parseInt(rs3.getString("score"));
+			String recommendResult;
+			String level = "null";
+			if(recommend == 1){
+				recommendResult = "추천";
+			}
+			else	recommendResult = "비추천";
+			sql = "select * from user_data where nickname = " + rs3.getString("nickname") + "";
+			rs4 = stmt.executeQuery(sql);
+			while(rs4.next()){
+				level = rs4.getString("level");
+			}
 	%>
-			 <div class = "commentBlock">
+			 <div class = 'commentBlock'>
+			 	<div class = 'profileImage'>
+			 		<img class="profilePicture1" src="ProfilePhotoProcess.jsp?nickname=<%= rs3.getString("nickname") %>" onerror="this.src='Image/NoProfileImage.png';">
+			 	</div>
+			 	<div class = 'level'>
+			 		<%= level %>
+			 	</div>
+			 	<div class = 'comment'>
+			 		<%= rs3.getString("comment") %>
+			 	</div>
+			 	<div class = 'date'>
+			 		<%= rs3.getString("date") %>
+			 	</div>
+			 	<div class = 'score'>
+			 		<%= recommendResult %>
+			 	</div>
 			 </div>
 	<% 		 
+			rs4.close();
 		}
+		rs3.close();
+		stmt.close();
+		conn.close();
 	}
 	catch(Exception e) {
 		out.println("DB 연동 오류입니다. : " + e.getMessage());
@@ -410,6 +442,11 @@
             $("#topMenu").fadeTo(200, 0);
         });
     });
+    function checkForm(){
+    	//로그인 안하면 댓글 등록 안되게 코딩
+    	//if login and comment are not null, then return true
+    	//else return false
+    }
 </script>
 </body>
 </html>
