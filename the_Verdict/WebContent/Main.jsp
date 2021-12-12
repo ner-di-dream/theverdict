@@ -175,7 +175,7 @@
 				}
 				%>
 				
-				<h3 class="bestReviewTitle"><% out.print(rs.getString("title")); %></h3>
+				<h3 class="bestReviewTitle" onClick="location.href='Review.jsp?id=<%=rs.getString("id")%>'"><% out.print(rs.getString("title")); %></h3>
 				<h3 class="bestReviewContent"><% out.print(rs.getString("content")); %></h3>
 				
 				<%
