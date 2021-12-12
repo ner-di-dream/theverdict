@@ -336,9 +336,9 @@
 	<div id = "writeComment">
 	<form method = "post" action = "comment.jsp" onSubmit="return checkForm()">
 		<textarea rows="5" cols="100" name = "comment"></textarea>
-		<input type="radio" id="positive" name="score" value="positive" checked>
+		<input type="radio" id="positive" name="score" value="1" checked>
     	<label for="positive">추천</label>
-    	<input type="radio" id="negative" name="score" value="negative">
+    	<input type="radio" id="negative" name="score" value="-1">
     	<label for="positive">비추천</label>
     	<input type = "submit" value = "등록">
     	<input type="hidden" id="review_id" name="review_id" value="<%= idString %>">
