@@ -4,11 +4,12 @@
 <%@ page import="java.io.*" %>
 <%@ page import="java.math.RoundingMode" %>
 <%@ page import="java.text.DecimalFormat" %>
-<%
-	HttpSession session = request.getSession(false);
-	String user_id = (String)session.getAttribute("ID");
-%>
+<%@ page  import = "javax.servlet.http.HttpSession" %>
 <% request.setCharacterEncoding("utf-8"); %>
+<%
+	boolean activation = false, showButton = false;
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,6 +50,7 @@
 		}
 		else
 		{
+			activation = true;
 			String nickname = (String)loginSession.getAttribute("nickname");
 			
 			if(nickname != null)
@@ -141,7 +143,6 @@
 <div id="content">
 		
 <%	
-		boolean activation = false;
 		String idString = request.getParameter("id");
 		int id = 0;
 	if(idString != null)
@@ -160,9 +161,8 @@
 			int reviewCount = 0;
 			while(rs.next())
 			{
-				
 				reviewCount++;
-				if(rs.getString("nickname") == user_id)	activation = true;
+				if((String)loginSession.getAttribute("ID") == rs.getString("nickname"))	showButton = true;
 %>
 		<div class="div1">
 			<h3 class="categoryTab" id="leftTab" onClick="location.href='Category.jsp'">분류</h3>
@@ -399,16 +399,16 @@
 	</div>
 </div>
 
+<div class="blank2"></div>
+
 <%
-	if(activation){
+	if(showButton == true){
 		%>
-		<a href = "delete-review.jsp?id=<%= idString%>">글 삭제하기</a>
+		<a href = "delete-review.jsp?id=<%=idString%>">삭제하기</a>
+		
 		<%
 	}
 %>
-
-
-<div class="blank2"></div>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
@@ -476,11 +476,10 @@
     function checkForm(){
     	//로그인 안하면 댓글 등록 안되게 코딩
     	//if login and comment are not null, then return true
-    	if(user_id == null){
-    		alert("로그인이 필요합니다.");
-    		return false;
-    	}
-    	return true;
+    	if(activation)	return true;
+    	
+    	alert("로그인이 필요합니다.");
+    	return false;
     	//else return false
     }
 </script>
