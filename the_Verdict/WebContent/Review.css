@@ -375,7 +375,6 @@ a
   	font-size: 24px;
 	font-weight: 400;
 	width: 1100px;
-	height: auto;
 	margin: 0px;
 	white-space: normal;
 	display: inline-block;
@@ -522,7 +521,7 @@ a
 	margin: 0px;
 }
 
-.topTier
+.topTier2
 {
 	position: absolute;
 	top: 250px;
@@ -599,4 +598,54 @@ a
 .div8
 {
 	width: 500px;
+}
+
+#writeComment
+{
+	position: relative;
+	top: 100px;
+	left: 100px;
+}
+
+.positive
+{
+	position: relative;
+	top: -60px;
+	left: 50px;
+}
+
+.negative
+{
+	position: relative;
+	top: -60px;
+	left: 50px;
+}
+
+#commentText
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+}
+
+#commentSubmit
+{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 900;
+	background-color: deepskyblue;
+	color: white;
+	position: relative;
+	top: -60px;
+	left: 100px;
+	border: none;
+	width: 120px;
+	height: 50px;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+textarea
+{
+	resize: none;
 }
