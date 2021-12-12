@@ -9,28 +9,29 @@
 </head>
 <body>
 <% 
-		String url = "jdbc:mysql://localhost:3306/the_verdict_db";
-		Connection conn = null;
-		Statement stmt = null;
-		String sql = "";
-		ResultSet rs;
-		
-		String score = request.getParameter("score");
-		String review_id = request.getParameter("review_id");
-		String comment = request.getParameter("comment");
-		String nickname = (String)session.getAttribute("nickname");
-		
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(url, "admin", "0000");
-			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			
-			
-			
-		}
-		catch(Exception e) {
-			out.println("DB 연동 오류입니다. : " + e.getMessage());
-		}
+        String url = "jdbc:mysql://localhost:3306/the_verdict_db";
+        Connection conn = null;
+        Statement stmt = null;
+        String sql = "";
+        ResultSet rs;
+        
+        String score = request.getParameter("score");
+        String review_id = request.getParameter("review_id");
+        String comment = request.getParameter("comment");
+        String nickname = (String)session.getAttribute("ID");
+        
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(url, "admin", "0000");
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            
+            
+            
+        }
+        catch(Exception e) {
+            out.println("DB 연동 오류입니다. : " + e.getMessage());
+        }
 %>
 </body>
 </html>
