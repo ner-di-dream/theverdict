@@ -38,6 +38,7 @@
 		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		
 		HttpSession loginSession = request.getSession(false);
+		String nickname = null;
 		if(loginSession == null)
 		{
 			%>
@@ -51,7 +52,7 @@
 		else
 		{
 			activation = true;
-			String nickname = (String)loginSession.getAttribute("nickname");
+			nickname = (String)loginSession.getAttribute("nickname");
 			
 			if(nickname != null)
 			{	
@@ -162,7 +163,10 @@
 			while(rs.next())
 			{
 				reviewCount++;
-				if((String)loginSession.getAttribute("ID") == rs.getString("nickname"))	showButton = true;
+				if(nickname == rs.getString("nickname"))
+				{
+					showButton = true;
+				}
 %>
 		<div class="div1">
 			<h3 class="categoryTab" id="leftTab" onClick="location.href='Category.jsp'">분류</h3>
@@ -299,10 +303,8 @@
 					for(int i = 0; i < infoSplit.length; i += 2)
 					{
 					%>
-					<div class="div9">
 					<div class="bestReviewInfo1"><% out.print(infoSplit[i]); %></div>
 					<div class="bestReviewInfo2"><% out.print(infoSplit[i + 1]); %></div>
-					</div>
 					<%
 					}
 					%>
@@ -310,6 +312,9 @@
 			</div>
 			</div>
 	
+			<div id="writeComment">
+			<textarea id="commentArea"></textarea>
+			</div>
 				<%
 			}
 			if(reviewCount == 0)

@@ -621,11 +621,18 @@ a
 	left: 50px;
 }
 
-#commentText
+textarea
+{
+	resize: none;
+}
+
+#commentArea
 {
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 18px;
 	font-weight: 400;
+	width: 1000px;
+	height: 240px;
 }
 
 #commentSubmit
@@ -645,7 +652,4 @@ a
 	cursor: pointer;
 }
 
-textarea
-{
-	resize: none;
-}
+
